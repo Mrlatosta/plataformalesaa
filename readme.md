@@ -2,6 +2,7 @@ Proyecto para la consulta de informes y seguimiento de muestras en el sitio web 
 
 Desarrollado Por:
 Raymundo Lara Sandoval
+
 Ivan Meraz Sanchez
 
 
