@@ -13,7 +13,7 @@ class FolioController extends Controller
             return response()->json($folio, 200);
         }
         catch(\Throwable $th){
-            return response()->json(['message' => 'Error al obtener los folios'], 500);
+            return response()->json(['message' => 'Error al obtener los folios causado por: ', $th], 500);
         }
     }
 }
