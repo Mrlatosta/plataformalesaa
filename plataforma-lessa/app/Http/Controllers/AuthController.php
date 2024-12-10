@@ -23,7 +23,7 @@ class AuthController extends Controller
         
 
         if (Auth::attempt($credentials)) {
-            // Redirecciona al inicio
+          
             return response()->json(['message' => 'Login efectuado con éxito'], 200);
         }
 

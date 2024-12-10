@@ -9,6 +9,14 @@ Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'loginPost']);
 Route::get('logout', [AuthController::class, 'logout']);
 
+
+
+Route::get('/consulta-informes', function () {
+    return Inertia::render('ConsultaInformes');
+})->name('consulta.informes');
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('inicio', function () {
         return 'Inicio';

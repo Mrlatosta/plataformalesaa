@@ -3,9 +3,10 @@
         <header>
             <nav>
                 <ul>
-                    <li><a href="/inicio">Inicio</a></li>
-                    <li><a href="/contacto">Contacto</a></li>
-                </ul>
+        <li><a href="/inicio">Inicio</a></li>
+        <li><a href="/consulta-informes">Consulta de Informes</a></li>
+        <li><a href="/seguimiento-muestras">Seguimiento de Muestras</a></li>
+      </ul>
             </nav>
         </header>
         <main>
