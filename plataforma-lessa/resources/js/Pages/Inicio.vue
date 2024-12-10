@@ -1,17 +1,16 @@
 <template>
     <div class="inicio">
-      <h1>Bienvenido a la página de inicio</h1>
-      <p>Nombre del usuario: {{ nombre }}</p>
+      <h3>{{ user.name }}</h3>
+      <h3>{{ user.email }}</h3>
+
+      <a href="/logout">Cerrar sesión</a>
     </div>
   </template>
   
   <script>
   export default {
     props: {
-      nombre: {
-        type: String,
-        required: true,
-      },
+      user: Object,
     },
   };
   </script>
