@@ -3,6 +3,8 @@ import './bootstrap';
 import { createApp, h} from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import Layout from './Components/Layout.vue';
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 createInertiaApp({
     resolve: name => {

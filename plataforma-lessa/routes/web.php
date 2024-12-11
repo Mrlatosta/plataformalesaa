@@ -12,8 +12,11 @@ Route::get('logout', [AuthController::class, 'logout']);
 
 
 Route::get('/consulta-informes', function () {
-    return Inertia::render('ConsultaInformes');
-})->name('consulta.informes');
+    return Inertia::render('ConsultaInformes', [
+        'user' => \Illuminate\Support\Facades\Auth::user(), // Aquí se pasa el usuario autenticado
+    ]);
+})->name('consulta.informes')->middleware('auth');
+
 
 
 
@@ -23,4 +26,4 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::get('inicio',[FrontController::class,'inicio'])->middleware('auth');
+Route::get('inicio', [FrontController::class, 'inicio'])->middleware('auth');

@@ -23,13 +23,19 @@ class FolioController extends Controller
     public function getFoliosByClientAndDate(Request $request)
     {
         $validated = $request->validate([
+            'email' => 'required',
             'fecha_inicio' => 'required|date',
             'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
         ]);
 
         try {
             $folios = DB::table('folios_muestreos')
-                ->whereBetween('fecha', [$validated['fecha_inicio'], $validated['fecha_fin']])
+                #email
+                ->where('folio_cliente', $validated['email']) 
+                #fecha_inicio
+                ->where('fecha', '>=', $validated['fecha_inicio'])
+                #fecha_fin
+                ->where('fecha', '<=', $validated['fecha_fin'])
                 ->get();
 
             return response()->json([

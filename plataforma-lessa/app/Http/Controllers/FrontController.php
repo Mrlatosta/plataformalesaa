@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
-    function inicio()
-    {
+    public function inicio()
+    {   
+        $user = \Illuminate\Support\Facades\Auth::user();
         return Inertia::render('Inicio',[
-            'user'=>\Illuminate\Support\Facades\Auth::user()
+            'user' => $user,
+            //'user'=>\Illuminate\Support\Facades\Auth::user()
         ]);
     }
 }
