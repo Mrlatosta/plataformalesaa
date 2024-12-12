@@ -1,10 +1,13 @@
 <template>
-  <div id="inicio">
-    <h1 class="" style="color: #002668;">¡Bienvenido {{ user.name }} a la plataforma Lesaa!</h1>
-    <p class="" style="color: #002668;">Tu usuario: {{ user.email }}</p>
-    <a href="/logout">Cerrar sesión</a>
+  
+    <h1>¡Bienvenido a la plataforma Lesaa!</h1>
+    <div class="shadow rounded bg-white m-xl-5 m-5 p-xl-5 p-2 position-relative gradient-custom-2">
+      <p style="text-align: center; font-size: 45px;">Hola, {{ user.name }}</p>
+      <p style="text-align: center; font-size: 35px;">Consulta fácilmente la información de tus informes o muestras desplazándote en el panel superior de la página.</p>
+    </div>
+    
 
-  </div>
+  
 </template>
 
 <script>
@@ -16,14 +19,47 @@ export default {
 </script>
 
 <style scoped>
-#inicio {
+
+/* .caja {
+  background-color: rgb(255, 255, 255);
+  font-size: 50 px;
+  color: #0a1529;
   font-family: Arial, sans-serif;
   margin: 20px;
   text-align: center;
-}
+  padding: 20px;
+} */
+
+.gradient-custom-2 {
+  /* fallback for old browsers */
+  background: #1b37a5;
+  
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, #0e0a7b, #1492e1, #07509f, #3c6fe7);
+  
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #0e0a7b, #1492e1, #07509f, #3c6fe7);
+  }
+  
+  @media (min-width: 768px) {
+  .gradient-form {
+  height: 100vh !important;
+  }
+  }
+  @media (min-width: 769px) {
+  .gradient-custom-2 {
+  border-top-right-radius: .3rem;
+  border-bottom-right-radius: .3rem;
+  }
+  }
+
+
 
 h1 {
-  color: #007BFF;
+  color: #002668;
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  text-align: center;
 }
 
 p {
