@@ -31,6 +31,17 @@ class MuestrasController extends Controller
 
             
             $muestras = DB::table('muestras')
+            ->select(
+                'registro_muestra',
+                'fecha_muestreo',
+                'nombre_muestra',
+                'cantidad_aprox',
+                'temperatura',
+                'lugar_toma',
+                'descripcion_toma',
+                'observaciones',
+                'muestras.estatus'
+            )
             ->leftJoin('folios_muestreos', 'muestras.folio_muestreo', '=', 'folios_muestreos.folio')
             ->where('folios_muestreos.folio_cliente', $validated['email'])
             ->where('muestras.folio_muestreo', $validated['folio']) #folio

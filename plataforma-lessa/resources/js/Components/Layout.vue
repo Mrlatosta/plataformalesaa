@@ -116,6 +116,6 @@ footer {
   background-repeat: no-repeat; /* Sin repeticiones */
   background-position: center; /* Centrar la imagen */
   opacity: 0.2; /* Opacidad solo para la imagen de fondo */
-  z-index: -1; /* Asegurar que esté detrás del contenido */
+  z-index: -1; /* Asegurar que esté detrás del contenido */ 
 }
 </style>
