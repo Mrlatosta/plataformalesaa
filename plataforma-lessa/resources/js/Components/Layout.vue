@@ -28,7 +28,7 @@
                 <a class="nav-link" href="/consulta-informes" style="color: #002668;">Consulta Informes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Seguimiento Muestras</a>
+                <a class="nav-link" href="/consulta-muestras">Seguimiento Muestras</a>
               </li>
               <li class="nav-item" style="display: flex; justify-items: center; text-align: center; vertical-align: middle;">
                 
@@ -111,7 +111,7 @@ footer {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../../../public/fondo.png'); /* Ruta de la imagen */
+  background-image: url('../../../public/fondo2.png'); /* Ruta de la imagen */
   background-size: cover; /* Que cubra todo */
   background-repeat: no-repeat; /* Sin repeticiones */
   background-position: center; /* Centrar la imagen */

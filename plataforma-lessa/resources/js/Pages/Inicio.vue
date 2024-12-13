@@ -1,9 +1,9 @@
 <template>
   
     <h1>¡Bienvenido a la plataforma Lesaa!</h1>
-    <div class="shadow rounded bg-white m-xl-5 m-5 p-xl-5 p-2 position-relative gradient-custom-2">
-      <p style="text-align: center; font-size: 45px;">Hola, {{ user.name }}</p>
-      <p style="text-align: center; font-size: 35px;">Consulta fácilmente la información de tus informes o muestras desplazándote en el panel superior de la página.</p>
+    <div class="shadow rounded p-xl-5 p-2 position-relative gradient-custom-2" style="margin: 200px;">
+      <p style="text-align: center; font-size: 45px; color: white;">¡Hola, {{ user.name }}!</p>
+      <p style="text-align: center; font-size: 35px; color: white;">Consulta fácilmente la información de tus informes o muestras desplazándote en el panel superior de la página.</p>
     </div>
     
 

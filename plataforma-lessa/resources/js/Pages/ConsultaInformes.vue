@@ -29,6 +29,7 @@
         <tr>
           <th>Folio</th>
           <th>Fecha</th>
+          <th>Estatus</th>
           <th>Descargar</th>
         </tr>
       </thead>
@@ -36,6 +37,7 @@
         <tr v-for="folio in folios" :key="folio.folio">
           <td>{{ folio.folio }}</td>
           <td>{{ folio.fecha }}</td>
+          <td>{{ folio.estatus.toUpperCase() }}</td>
           <td>
             <button type="button" class="btn btn-primary" @click="descargarFolio(folio)">Descargar</button>
           </td>

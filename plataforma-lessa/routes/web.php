@@ -17,6 +17,11 @@ Route::get('/consulta-informes', function () {
     ]);
 })->name('consulta.informes')->middleware('auth');
 
+Route::get('/consulta-muestras', function () {
+    return Inertia::render('ConsultaMuestras', [
+        'user' => \Illuminate\Support\Facades\Auth::user(), // Aquí se pasa el usuario autenticado
+    ]);
+})->name('consulta.muestras')->middleware('auth');
 
 
 
