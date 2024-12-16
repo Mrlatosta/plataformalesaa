@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow rounded bg-white m-xl-3 m-5 p-xl-5 p-2 position-relative">
+  <div class="shadow rounded bg-white m-xl-3 m-3 p-xl-5 position-relative">
     <div class="image-container">
       <!-- Imagen posicionada arriba del texto -->
       <img src="../../../public/gota.png" alt="Gota" class="gota-image" />
@@ -13,11 +13,14 @@
           <div>
             <label for="fecha_inicio">Fecha Inicio:</label>
             <input type="date" v-model="fecha_inicio" required />
+            
           </div>
           <div>
-            <label for="fecha_fin">Fecha Fin:</label>
+            <label for="fecha_fin">Fecha Fin: </label>
             <input type="date" v-model="fecha_fin" required />
-          </div>
+            
+          </div>          
+
         </div>
 
         <br />
@@ -39,7 +42,7 @@
           <td>{{ folio.fecha }}</td>
           <td>{{ folio.estatus.toUpperCase() }}</td>
           <td>
-            <button type="button" class="btn btn-primary" @click="descargarFolio(folio)">Descargar</button>
+            <button type="button" class="btn btn-primary" @click="descargarFolio(folio)"><img src="../../../public/downloadicon.png" style="filter: invert(100%);"  width="20" alt="Decargar"></button>
           </td>
         </tr>
       </tbody>
@@ -47,9 +50,12 @@
   </div>
 </template>
 
-<script>
+
+
+<script > 
 import Layout from "@/components/Layout.vue";
 import axios from "axios";
+
 
 export default {
   components: {
@@ -71,6 +77,7 @@ export default {
         console.error("El usuario no está definido o no tiene un email:", this.user);
         return;
       }
+      
 
       try {
         const response = await axios.get("/api/folios", {
@@ -138,5 +145,13 @@ export default {
   h2 {
     margin-top: 10px;
   }
+
+  .table{
+    width: 100%;
+    font-size: 0.8rem;
+  }
+
+  
+  
 }
 </style>

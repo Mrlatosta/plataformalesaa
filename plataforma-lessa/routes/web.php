@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\FolioController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
@@ -23,7 +24,11 @@ Route::get('/consulta-muestras', function () {
     ]);
 })->name('consulta.muestras')->middleware('auth');
 
-
+Route::get('/folio-info', function(){
+return Inertia::render('obtenerFolioInfo', [
+    'user' => \Illuminate\Support\Facades\Auth::user(), // Aquí se pasa el usuario autenticado
+]);
+})->name('folio.info')->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('inicio', function () {

@@ -18,6 +18,8 @@ Route::get('/folios', [FolioController::class, 'getFoliosByClientAndDate']);
 
 Route::get('/muestras', [MuestrasController::class, 'getMuestrasByFolio']);
 
+Route::get('/folio-info', [FolioController::class, 'obtenerFolioInfo']);
+
 
 
 

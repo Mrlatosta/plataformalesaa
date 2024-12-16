@@ -4,7 +4,7 @@
       <nav class="navbar navbar-expand-lg bg-body-tertiary shadow fixed-top">
         <div class="container-fluid">
           <a class="navbar-brand ms-3" href="#">
-            <img src="../../../public/logo.png" alt="Bootstrap" width="160px" class="ms-0 ms-xl-5 mt-2 mb-1" >
+            <img src="../../../public/logo.png" alt="Bootstrap" width="140px" class="ms-0 ms-xl-5 mt-2 mb-1" >
           </a>
 
           <button
@@ -28,7 +28,7 @@
                 <a class="nav-link" href="/consulta-informes" style="color: #002668;">Consulta Informes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/consulta-muestras">Seguimiento Muestras</a>
+                <a class="nav-link" href="/consulta-muestras" style="color: #002668;">Seguimiento Muestras</a>
               </li>
               <li class="nav-item" style="display: flex; justify-items: center; text-align: center; vertical-align: middle;">
                 
@@ -74,7 +74,7 @@ header {
 }
 
 #listanav li a {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin-left: 20px;
   margin-right: 20px;
   font-weight: 700;

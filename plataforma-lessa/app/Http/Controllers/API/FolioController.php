@@ -51,6 +51,46 @@ class FolioController extends Controller
         }
     }
 
+    public function obtenerFolioInfo(Request $request)
+      {
+
+        $validated = $request->validate([
+            'email' => 'required',
+            'folio' => 'required',
+        ]);
+
+        try {
+            $folios = DB::table('folios_muestreos')
+
+            ->select( 
+                'fecha',	        
+                'nombre_autoriza_muestras',
+                'puesto_autoriza_muestra',
+                'nombre_tomador_muestra',
+                'puesto_tomador_muestra',
+                'estatus'
+            )
+
+                #email
+                ->where('folio_cliente', $validated['email']) 
+                #folio
+                ->where('folio', $validated['folio'])
+                ->get();
+
+
+            return response()->json([
+                'success' => true,
+                'data' => $folios,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al recuperar los folios.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+      }
+
 }
 
 

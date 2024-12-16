@@ -30,6 +30,10 @@ class FolioM extends Model
         'fecha',
         'folio_cliente',
         'estatus',
+        'nombre_autoriza_muestras',
+        'puesto_autoriza_muestra',
+        'nombre_tomador_muestra',
+        'puesto_tomador_muestra',
     ];
 
     

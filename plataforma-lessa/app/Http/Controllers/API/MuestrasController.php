@@ -62,4 +62,5 @@ class MuestrasController extends Controller
               ], 500);
           }
       }
+
 }
