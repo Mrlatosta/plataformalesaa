@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Layout2 from '../Components/Layout2.vue';
+import Layout2 from '../components/Layout.vue';
     export default {
            name: "Contacto",
            layout: Layout2
