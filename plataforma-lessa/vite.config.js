@@ -3,6 +3,10 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
+    server: {
+        host: '0.0.0.0',  // Escucha en todas las interfaces
+        port: 5173         // El puerto que quieres usar
+    },
     plugins: [
         vue(),
         laravel({

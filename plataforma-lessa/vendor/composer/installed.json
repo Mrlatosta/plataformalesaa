@@ -564,7 +564,7 @@
             },
             "time": "2024-11-21T13:46:39+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Faker\\": "src/Faker/"
@@ -626,7 +626,7 @@
                     "dev-master": "2.7-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Whoops\\": "src/Whoops/"
@@ -1261,7 +1261,7 @@
                     "dev-master": "2.1-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "hamcrest"
@@ -1623,7 +1623,7 @@
                     ]
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Laravel\\Pail\\": "src/"
@@ -1693,7 +1693,7 @@
                 "builds/pint"
             ],
             "type": "project",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "App\\": "app/",
@@ -1827,7 +1827,7 @@
                     ]
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Laravel\\Sail\\": "src/"
@@ -2474,7 +2474,7 @@
             },
             "time": "2024-05-16T03:13:13+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "files": [
                     "library/helpers.php",
@@ -2667,7 +2667,7 @@
             },
             "time": "2024-11-08T17:47:46+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "files": [
                     "src/DeepCopy/deep_copy.php"
@@ -3072,7 +3072,7 @@
                     "dev-8.x": "8.x-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "files": [
                     "./src/Adapters/Phpunit/Autoload.php"
@@ -3244,7 +3244,7 @@
                     "dev-master": "2.0.x-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -3304,7 +3304,7 @@
             },
             "time": "2022-02-21T01:04:05+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -3460,7 +3460,7 @@
                     "dev-main": "11.0.x-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -3525,7 +3525,7 @@
                     "dev-main": "5.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -3593,7 +3593,7 @@
                     "dev-main": "5.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -3656,7 +3656,7 @@
                     "dev-main": "4.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -3719,7 +3719,7 @@
                     "dev-main": "7.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -3809,7 +3809,7 @@
                     "dev-main": "11.4-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "files": [
                     "src/Framework/Assert/Functions.php"
@@ -4637,7 +4637,7 @@
                     "dev-main": "3.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -4697,7 +4697,7 @@
                     "dev-main": "3.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -4757,7 +4757,7 @@
                     "dev-main": "4.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -4820,7 +4820,7 @@
                     "dev-main": "6.2-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -4897,7 +4897,7 @@
                     "dev-main": "4.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -4958,7 +4958,7 @@
                     "dev-main": "6.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -5030,7 +5030,7 @@
                     "dev-main": "7.2-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -5096,7 +5096,7 @@
                     "dev-main": "6.1-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -5178,7 +5178,7 @@
                     "dev-main": "7.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -5241,7 +5241,7 @@
                     "dev-main": "3.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -5303,7 +5303,7 @@
                     "dev-main": "6.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -5362,7 +5362,7 @@
                     "dev-main": "4.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -5421,7 +5421,7 @@
                     "dev-main": "6.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -5488,7 +5488,7 @@
                     "dev-main": "5.1-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -5545,7 +5545,7 @@
                     "dev-main": "5.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -7920,7 +7920,7 @@
                 "Resources/bin/yaml-lint"
             ],
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Yaml\\": ""
@@ -7987,7 +7987,7 @@
             },
             "time": "2024-03-03T12:36:25+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
