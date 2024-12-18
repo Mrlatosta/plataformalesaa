@@ -15,20 +15,23 @@
           <div>
             <label for="fecha_inicio">Fecha Inicio:</label>
             <input type="date" v-model="fecha_inicio" required />
-            
           </div>
           <div>
             <label for="fecha_fin">Fecha Fin: </label>
             <input type="date" v-model="fecha_fin" required />
-            
-          </div>          
-
+          </div>
         </div>
 
         <br />
         <button type="button" class="btn btn-outline-primary" @click="consultarFolios">Consultar</button>
       </form>
     </div>
+
+    <!-- Mensaje si no se encuentran folios -->
+    <div v-if="noFolios" class="alert alert-warning no-folios-alert" role="alert">
+      No se encontraron folios en ese rango de fechas.
+    </div>
+
     <table class="table" v-if="folios.length" style="text-align: center;">
       <thead>
         <tr>
@@ -52,8 +55,11 @@
   </div>
 </template>
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 225d3b7b760bab78b2a1298bf9dbd5ac55a7b3f5
 <script>
 import Layout from "@/components/Layout.vue";
 import axios from "axios";
@@ -70,6 +76,7 @@ export default {
       fecha_inicio: "",
       fecha_fin: "",
       folios: [],
+      noFolios: false, // Nueva variable para controlar la visualización del mensaje
     };
   },
   methods: {
@@ -88,6 +95,14 @@ export default {
             fecha_fin: this.fecha_fin,
           },
         });
+        
+        // Si no hay folios en la respuesta, se muestra el mensaje
+        if (response.data.data.length === 0) {
+          this.noFolios = true;
+        } else {
+          this.noFolios = false;
+        }
+
         this.folios = response.data.data;
       } catch (error) {
         console.error("Error al consultar los folios:", error);
@@ -171,6 +186,18 @@ export default {
   margin-top: 30px; /* Asegura que las fechas no se solapen con la imagen */
 }
 
+/* Estilo del mensaje de error centrado */
+.no-folios-alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding: 15px;
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+}
+
 /* Media query para pantallas pequeñas */
 @media (max-width: 767px) {
   /* Asegura que la imagen esté centrada y encima del texto */
@@ -178,7 +205,7 @@ export default {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .gota-image {
     width: 80px; /* Reducir el tamaño de la imagen en móvil */
     margin-bottom: 15px; /* Espacio entre la imagen y el texto */
@@ -189,12 +216,9 @@ export default {
     margin-top: 10px;
   }
 
-  .table{
+  .table {
     width: 100%;
     font-size: 0.8rem;
   }
-
-  
-  
 }
 </style>

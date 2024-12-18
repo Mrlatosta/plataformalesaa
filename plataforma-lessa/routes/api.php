@@ -31,9 +31,3 @@ Route::get('/muestrase', [MuestraseController::class, 'getMuestraseByFolio']);
 Route::middleware('auth:sanctum')->get('/file-url/{cliente}/{filename}', [FileController::class, 'getTemporaryUrl']);
 
 Route::middleware('auth:sanctum')->get('/file-download/{filename}', [FileController::class, 'downloadFile']);
-
-
-
-
-
-
