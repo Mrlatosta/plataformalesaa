@@ -18,6 +18,13 @@ Route::get('/consulta-informes', function () {
     ]);
 })->name('consulta.informes')->middleware('auth');
 
+Route::get('/consulta-informese', function () {
+    return Inertia::render('ConsultaInformese', [
+        'user' => \Illuminate\Support\Facades\Auth::user(), // Aquí se pasa el usuario autenticado
+    ]);
+})->name('consulta.informese')->middleware('auth');
+
+
 Route::get('/consulta-muestras', function () {
     return Inertia::render('ConsultaMuestras', [
         'user' => \Illuminate\Support\Facades\Auth::user(), // Aquí se pasa el usuario autenticado
@@ -37,3 +44,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('inicio', [FrontController::class, 'inicio'])->middleware('auth');
+
+
+Route::get('/consulta-muestrase', function () {
+    return Inertia::render('ConsultaMuestrase', [
+        'user' => \Illuminate\Support\Facades\Auth::user(), // Aquí se pasa el usuario autenticado
+    ]);
+})->name('consulta.muestrase')->middleware('auth');

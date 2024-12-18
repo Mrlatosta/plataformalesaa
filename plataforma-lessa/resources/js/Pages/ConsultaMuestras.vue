@@ -13,7 +13,7 @@
         <div class="form-container">
           <div style="font-size: 22px;">
             <label for="folio_muestreo">Ingresa tu folio de muestreo:</label>
-            <input type="text" v-model="folio_muestreo" required />
+            <input size="12" type="text" v-model="folio_muestreo" required />
           </div>
         </div>
         <br />
@@ -21,6 +21,13 @@
           Consultar
         </button>
       </form>
+    </div>
+
+    <!-- Mostrar alerta si no se encuentra el folio -->
+    <div v-if="noResultMessage" class="alert alert-warning alert-dismissible fade show" role="alert" style="text-align: center;">
+      <div class="error-message">
+        {{ noResultMessage }}
+      </div>
     </div>
 
     <!-- Tabla de Folio Info -->
@@ -69,7 +76,7 @@
               <th>Lugar toma</th>
               <th>Descripción toma</th>
               <th>Observaciones</th>
-              <th>Estatus de la muetra</th>
+              <th>Estatus de la muestra</th>
             </tr>
           </thead>
           <tbody>
@@ -105,8 +112,9 @@ export default {
   data() {
     return {
       muestras: [],
-      folioInfo: [], // Aquí se guarda la información de obtenerFolioInfo()
-      folio_muestreo: "", // Input del folio de muestreo
+      folioInfo: [],
+      folio_muestreo: "",
+      noResultMessage: "",
     };
   },
   methods: {
@@ -117,7 +125,6 @@ export default {
       }
 
       try {
-        // Obtener la información de las muestras
         const muestrasResponse = await axios.get("/api/muestras", {
           params: {
             email: this.user.email,
@@ -126,7 +133,6 @@ export default {
         });
         this.muestras = muestrasResponse.data.data;
 
-        // Obtener la información específica del folio
         const folioResponse = await axios.get("/api/folio-info", {
           params: {
             email: this.user.email,
@@ -134,6 +140,12 @@ export default {
           },
         });
         this.folioInfo = folioResponse.data.data;
+
+        if (this.muestras.length === 0 && this.folioInfo.length === 0) {
+          this.noResultMessage = "Folio de Muestras no encontrado en la base de datos";
+        } else {
+          this.noResultMessage = "";
+        }
       } catch (error) {
         console.error("Error al consultar los datos:", error);
       }
@@ -143,27 +155,31 @@ export default {
 </script>
 
 <style scoped>
-/* Posicionar el contenedor principal */
+/* Error message styling */
+.error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Asegura que el mensaje se centre verticalmente */
+}
+
 .position-relative {
   position: relative;
 }
 
-/* Contenedor para la imagen */
 .image-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px; /* Espacio entre la imagen y el texto */
+  margin-bottom: 20px;
 }
 
-/* Imagen en la parte superior de la pantalla */
 .gota-image {
-  width: 100px; /* Tamaño de la imagen */
-  height: auto; /* Mantener proporciones */
-  z-index: 10; /* Asegura que esté por encima de otros elementos */
+  width: 100px;
+  height: auto;
+  z-index: 10;
 }
 
-/* Títulos de las tablas */
 .table-title {
   margin-top: 30px;
   text-align: center;
@@ -172,27 +188,22 @@ export default {
   color: #333;
 }
 
-/* Contenedor para permitir desplazamiento horizontal en tablas */
 .table-container {
-  overflow-x: auto; /* Permite el scroll horizontal en tablas */
-  -webkit-overflow-scrolling: touch; /* Mejora el scroll en dispositivos iOS */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   margin-top: 10px;
 }
 
-/* Media query para pantallas pequeñas */
 @media (max-width: 767px) {
-  /* Imagen centrada y adaptada en móvil */
   .gota-image {
-    width: 80px; /* Reducir el tamaño de la imagen en móvil */
-    margin-bottom: 15px; /* Espacio entre la imagen y el texto */
+    width: 80px;
+    margin-bottom: 15px;
   }
 
-  /* Alinear el texto en pantallas pequeñas */
   h2 {
     margin-top: 10px;
   }
 
-  /* Ajustar márgenes en el formulario */
   .form-container {
     margin-top: 10px;
   }
