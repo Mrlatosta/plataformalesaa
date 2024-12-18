@@ -1,5 +1,7 @@
 <template>
   <div class="shadow rounded bg-white m-xl-3 m-3 p-xl-5 position-relative">
+
+    
     <div class="image-container">
       <!-- Imagen posicionada arriba del texto -->
       <img src="../../../public/gota.png" alt="Gota" class="gota-image" />
@@ -42,7 +44,7 @@
           <td>{{ folio.fecha }}</td>
           <td>{{ folio.estatus.toUpperCase() }}</td>
           <td>
-            <button type="button" class="btn btn-primary" @click="descargarFolio(folio)"><img src="../../../public/downloadicon.png" style="filter: invert(100%);"  width="20" alt="Decargar"></button>
+            <button type="button" class="btn btn-primary" @click="descargarFolio(user.email, folio.folio)"><img src="../../../public/downloadicon.png" style="filter: invert(100%);"  width="20" alt="Decargar"></button>
           </td>
         </tr>
       </tbody>
@@ -52,10 +54,9 @@
 
 
 
-<script > 
+<script>
 import Layout from "@/components/Layout.vue";
 import axios from "axios";
-
 
 export default {
   components: {
@@ -72,12 +73,12 @@ export default {
     };
   },
   methods: {
+    // Método para consultar los folios
     async consultarFolios() {
       if (!this.user || !this.user.email) {
         console.error("El usuario no está definido o no tiene un email:", this.user);
         return;
       }
-      
 
       try {
         const response = await axios.get("/api/folios", {
@@ -92,12 +93,54 @@ export default {
         console.error("Error al consultar los folios:", error);
       }
     },
-    descargarFolio(folio) {
-      console.log(`Descargando folio ${folio.folio}`); // Implementar lógica de descarga
-    },
+
+    // Método para descargar un archivo asociado al folio
+    async descargarFolio(userEmail,folio) {
+  try {
+    // Obtener el token desde localStorage
+    const token = localStorage.getItem('authToken'); // Asumiendo que el token se guarda bajo la clave 'token'
+
+    if (!token) {
+      console.error('Token no disponible');
+      return; // Salir si no hay token
+    }
+
+    console.log('Pase el token' + token);
+
+    // Llamar a la API para obtener la URL temporal del archivo
+    const response = await axios.get(`/api/file-url/${userEmail}/${folio}`, {
+      headers: {
+        'Authorization': `Bearer ${token}` // Usar el token de localStorage
+      }
+    });
+
+    console.log('Pase la response',response);
+    console.log('Url del archivo',response.data.url);
+
+    const fileData = response.data.data; // data contiene file_name y url
+    const fileName = fileData.file_name;
+    const fileUrl = fileData.url;
+
+    // Si la URL del archivo es exitosa, proceder a descargar
+    const url = fileUrl;
+
+    console.log('URL temporal del archivo:', url);
+
+
+    // Crear un enlace dinámico para la descarga
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = folio; // Nombre del archivo a descargar
+    link.click();
+  } catch (error) {
+    console.error('Error al intentar descargar el archivo:', error);
+    alert('Ocurrió un error al intentar descargar el archivo');
+  }
+}
   },
 };
 </script>
+
 
 <style scoped>
 /* Posicionar el contenedor principal */

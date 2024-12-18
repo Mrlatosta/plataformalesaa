@@ -56,6 +56,17 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
+        // Agregar disco para DigitalOcean Spaces
+    'spaces' => [
+        'driver' => 's3',
+        'key' => env('DO_SPACE_KEY'), // Llave de acceso
+        'secret' => env('DO_SPACE_SECRET'), // Secreto de acceso
+        'region' => env('DO_SPACE_REGION'), // Región de Spaces (por ejemplo: nyc3)
+        'bucket' => env('DO_SPACE_BUCKET'), // Nombre del bucket
+        'endpoint' => env('DO_SPACE_ENDPOINT'), // Endpoint de DigitalOcean (por ejemplo: https://nyc3.digitaloceanspaces.com)
+        'use_path_style_endpoint' => false, // Generalmente false, a menos que se requiera
+    ],
+
 
     ],
 

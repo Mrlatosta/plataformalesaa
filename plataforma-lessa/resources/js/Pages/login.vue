@@ -127,7 +127,8 @@ export default {
           email: this.form.email,
           password: this.form.password,
         })
-        .then(() => {
+        .then((response) => {
+          localStorage.setItem("authToken", response.data.token);
           router.get("inicio");
         })
         .catch((err) => {

@@ -23,8 +23,13 @@ class AuthController extends Controller
         
 
         if (Auth::attempt($credentials)) {
-          
-            return response()->json(['message' => 'Login efectuado con éxito'], 200);
+            $user = Auth::user();
+            $token = $user->createToken('plataformaLesaaApp')->plainTextToken;  // Genera el token
+
+            return response()->json([
+                'token' => $token,
+                'user' => $user
+            ]);
         }
 
         throw ValidationException::withMessages([
