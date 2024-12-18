@@ -52,3 +52,7 @@ Route::get('/consulta-muestrase', function () {
     ]);
 })->name('consulta.muestrase')->middleware('auth');
 
+Route::middleware('auth:sanctum')->get('/file-url/{cliente}/{filename}', [FileController::class, 'getTemporaryUrl']);
+
+
+

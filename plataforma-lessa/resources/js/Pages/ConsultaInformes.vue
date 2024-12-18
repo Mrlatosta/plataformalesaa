@@ -55,11 +55,6 @@
   </div>
 </template>
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 225d3b7b760bab78b2a1298bf9dbd5ac55a7b3f5
 <script>
 import Layout from "@/components/Layout.vue";
 import axios from "axios";
