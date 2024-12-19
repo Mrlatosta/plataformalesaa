@@ -5,12 +5,19 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\API\FolioeController;
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'loginPost']);
 Route::get('logout', [AuthController::class, 'logout']);
 
 
+Route::get('/folioe-info', function(){
+    return Inertia::render('obtenerFolioeInfo', [
+        'user' => \Illuminate\Support\Facades\Auth::user(),
+    ]);
+})->name('folioe.info')->middleware('auth');
 
 Route::get('/consulta-informes', function () {
     return Inertia::render('ConsultaInformes', [
@@ -37,6 +44,8 @@ return Inertia::render('obtenerFolioInfo', [
 ]);
 })->name('folio.info')->middleware('auth');
 
+
+
 Route::middleware('auth')->group(function () {
     Route::get('inicio', function () {
         return 'Inicio';
@@ -52,7 +61,7 @@ Route::get('/consulta-muestrase', function () {
     ]);
 })->name('consulta.muestrase')->middleware('auth');
 
-Route::middleware('auth:sanctum')->get('/file-url/{cliente}/{filename}', [FileController::class, 'getTemporaryUrl']);
+//Route::middleware('auth:sanctum')->get('/file-url/{cliente}/{filename}', [FileController::class, 'getTemporaryUrl']);
 
 
 

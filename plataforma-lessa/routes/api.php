@@ -28,6 +28,10 @@ Route::get('/folioe-info', [FolioeController::class, 'obtenerFolioeInfo']);
 
 Route::get('/muestrase', [MuestraseController::class, 'getMuestraseByFolio']);
 
-Route::middleware('auth:sanctum')->get('/file-url/{cliente}/{filename}', [FileController::class, 'getTemporaryUrl']);
+Route::get('/api/folioe-info', [FolioeController::class, 'obtenerFolioeInfo'])->name('folioe-info');
 
-Route::middleware('auth:sanctum')->get('/file-download/{filename}', [FileController::class, 'downloadFile']);
+// Route::middleware('auth:sanctum')->get('/file-url/{cliente}/{filename}', [FileController::class, 'getTemporaryUrl']);
+
+// Route::middleware('auth:sanctum')->get('/file-download/{filename}', [FileController::class, 'downloadFile']);
+
+

@@ -20,6 +20,12 @@
         <button type="button" class="btn btn-outline-primary" @click="consultarMuestras">
           Consultar
         </button>
+
+        <!-- Botón Refrescar -->
+        <button type="button" @click="refresh" class="btn btn-outline-primary">
+          <i v-if="loading" class="fas fa-sync-alt fa-spin"></i>
+          <span v-if="!loading">Refrescar</span>
+        </button>
       </form>
     </div>
 
@@ -115,6 +121,7 @@ export default {
       folioInfo: [],
       folio_muestreo: "",
       noResultMessage: "",
+      loading: false, // Para manejar el estado de carga
     };
   },
   methods: {
@@ -149,6 +156,14 @@ export default {
       } catch (error) {
         console.error("Error al consultar los datos:", error);
       }
+    },
+    refresh() {
+      // Lógica para el refresco
+      console.log("Refrescando...");
+      this.loading = true; // Iniciar estado de carga
+      setTimeout(() => {
+        this.loading = false; // Terminar estado de carga después de 2 segundos
+      }, 2000);
     },
   },
 };
@@ -192,6 +207,20 @@ export default {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   margin-top: 10px;
+}
+
+.btn-outline-primary {
+  background-color: white !important; /* Fondo blanco */
+  border: 1px solid #007bff !important; /* Borde azul */
+  color: #007bff !important; /* Texto azul */
+  padding: 10px 20px;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.btn-outline-primary i {
+  margin-right: 8px;
 }
 
 @media (max-width: 767px) {

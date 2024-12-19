@@ -1,7 +1,5 @@
 <template>
   <div class="shadow rounded bg-white m-xl-3 m-3 p-xl-5 position-relative">
-
-    
     <div class="image-container">
       <!-- Imagen posicionada arriba del texto -->
       <img src="../../../public/gota.png" alt="Gota" class="gota-image" />
@@ -24,6 +22,12 @@
 
         <br />
         <button type="button" class="btn btn-outline-primary" @click="consultarFolios">Consultar</button>
+
+        <!-- Botón Refrescar -->
+        <button type="button" @click="refresh" class="btn btn-outline-primary">
+          <i v-if="loading" class="fas fa-sync-alt fa-spin"></i>
+          <span v-if="!loading">Refrescar</span>
+        </button>
       </form>
     </div>
 
@@ -47,7 +51,9 @@
           <td>{{ folio.fecha }}</td>
           <td>{{ folio.estatus.toUpperCase() }}</td>
           <td>
-            <button type="button" class="btn btn-primary" @click="descargarFolio(user.email, folio.folio)"><img src="../../../public/downloadicon.png" style="filter: invert(100%);"  width="20" alt="Decargar"></button>
+            <button type="button" class="btn btn-primary" @click="descargarFolio(user.email, folio.folio)">
+              <img src="../../../public/downloadicon.png" style="filter: invert(100%);" width="20" alt="Descargar">
+            </button>
           </td>
         </tr>
       </tbody>
@@ -71,7 +77,8 @@ export default {
       fecha_inicio: "",
       fecha_fin: "",
       folios: [],
-      noFolios: false, // Nueva variable para controlar la visualización del mensaje
+      noFolios: false,
+      loading: false, // Para manejar el estado de carga
     };
   },
   methods: {
@@ -90,7 +97,7 @@ export default {
             fecha_fin: this.fecha_fin,
           },
         });
-        
+
         // Si no hay folios en la respuesta, se muestra el mensaje
         if (response.data.data.length === 0) {
           this.noFolios = true;
@@ -104,56 +111,47 @@ export default {
       }
     },
 
+    // Método para refrescar la consulta
+    refresh() {
+      console.log("Refrescando...");
+      this.loading = true; // Iniciar estado de carga
+      setTimeout(() => {
+        this.loading = false; // Terminar estado de carga después de 2 segundos
+      }, 2000);
+    },
+
     // Método para descargar un archivo asociado al folio
-    async descargarFolio(userEmail,folio) {
-  try {
-    // Obtener el token desde localStorage
-    const token = localStorage.getItem('authToken'); // Asumiendo que el token se guarda bajo la clave 'token'
+    async descargarFolio(userEmail, folio) {
+      try {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+          console.error('Token no disponible');
+          return;
+        }
 
-    if (!token) {
-      console.error('Token no disponible');
-      return; // Salir si no hay token
-    }
+        const response = await axios.get(`/api/file-url/${userEmail}/${folio}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
 
-    console.log('Pase el token' + token);
-
-    // Llamar a la API para obtener la URL temporal del archivo
-    const response = await axios.get(`/api/file-url/${userEmail}/${folio}`, {
-      headers: {
-        'Authorization': `Bearer ${token}` // Usar el token de localStorage
+        const fileData = response.data.data;
+        const fileUrl = fileData.url;
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = folio;
+        link.click();
+      } catch (error) {
+        console.error('Error al intentar descargar el archivo:', error);
+        alert('Ocurrió un error al intentar descargar el archivo');
       }
-    });
-
-    console.log('Pase la response',response);
-    console.log('Url del archivo',response.data.url);
-
-    const fileData = response.data.data; // data contiene file_name y url
-    const fileName = fileData.file_name;
-    const fileUrl = fileData.url;
-
-    // Si la URL del archivo es exitosa, proceder a descargar
-    const url = fileUrl;
-
-    console.log('URL temporal del archivo:', url);
-
-
-    // Crear un enlace dinámico para la descarga
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = folio; // Nombre del archivo a descargar
-    link.click();
-  } catch (error) {
-    console.error('Error al intentar descargar el archivo:', error);
-    alert('Ocurrió un error al intentar descargar el archivo');
-  }
-}
+    }
   },
 };
 </script>
 
-
 <style scoped>
-/* Posicionar el contenedor principal */
+/* Agrega aquí tus estilos adicionales si los necesitas */
 .position-relative {
   position: relative;
 }
@@ -163,50 +161,50 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px; /* Espacio entre la imagen y el texto */
+  margin-bottom: 20px;
 }
 
-/* Imagen en la parte superior de la pantalla */
 .gota-image {
-  width: 100px; /* Tamaño de la imagen */
-  height: auto; /* Mantener proporciones */
-  z-index: 10; /* Asegura que esté por encima de otros elementos */
+  width: 100px;
+  height: auto;
+  z-index: 10;
 }
 
-/* Contenedor de fechas */
 .form-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 30px; /* Asegura que las fechas no se solapen con la imagen */
+  margin-top: 30px;
 }
 
-/* Estilo del mensaje de error centrado */
-.no-folios-alert {
-  display: flex;
-  justify-content: center;
+/* Estilo para el botón de refresco */
+.btn-refresh {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: inline-flex;
   align-items: center;
-  margin-top: 20px;
-  padding: 15px;
-  width: 100%;
-  text-align: center;
-  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.btn-refresh i {
+  margin-right: 8px;
 }
 
 /* Media query para pantallas pequeñas */
 @media (max-width: 767px) {
-  /* Asegura que la imagen esté centrada y encima del texto */
   .image-container {
     flex-direction: column;
     align-items: center;
   }
 
   .gota-image {
-    width: 80px; /* Reducir el tamaño de la imagen en móvil */
-    margin-bottom: 15px; /* Espacio entre la imagen y el texto */
+    width: 80px;
+    margin-bottom: 15px;
   }
 
-  /* El texto de la cabecera debería estar centrado */
   h2 {
     margin-top: 10px;
   }
