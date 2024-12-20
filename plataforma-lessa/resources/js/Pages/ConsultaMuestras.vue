@@ -16,7 +16,7 @@
             <input size="12" type="text" v-model="folio_muestreo" required />
           </div>
         </div>
-        <br />
+        <br/>
         <button type="button" class="btn btn-outline-primary" @click="consultarMuestras">
           Consultar
         </button>
@@ -157,14 +157,15 @@ export default {
         console.error("Error al consultar los datos:", error);
       }
     },
-    refresh() {
-      // Lógica para el refresco
+        refresh() {
       console.log("Refrescando...");
       this.loading = true; // Iniciar estado de carga
-      setTimeout(() => {
-        this.loading = false; // Terminar estado de carga después de 2 segundos
-      }, 2000);
+      this.consultarMuestras()  // Llamada a la función que consulta los datos
+        .finally(() => {
+          this.loading = false; // Terminar estado de carga
+        });
     },
+
   },
 };
 </script>
@@ -213,7 +214,7 @@ export default {
   background-color: white !important; /* Fondo blanco */
   border: 1px solid #007bff !important; /* Borde azul */
   color: #007bff !important; /* Texto azul */
-  padding: 10px 20px;
+  padding: 5px 10px;
   display: inline-flex;
   align-items: center;
   margin-top: 10px;

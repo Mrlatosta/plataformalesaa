@@ -58,6 +58,31 @@
         </tr>
       </tbody>
     </table>
+
+    <table class="table" v-if="foliose.length" style="text-align: center;">
+      <thead>
+        <tr>
+          <th>Folio</th>
+          <th>Fecha</th>
+          <th>Estatus</th>
+          <th>Descargar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="folio in foliose" :key="folio.folio">
+          <td>{{ folio.folio }}</td>
+          <td>{{ folio.fecha }}</td>
+          <td>{{ folio.estatus.toUpperCase() }}</td>
+          <td>
+            <button type="button" class="btn btn-primary" @click="descargarFolio(user.email, folio.folio)">
+              <img src="../../../public/downloadicon.png" style="filter: invert(100%);" width="20" alt="Descargar">
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
   </div>
 </template>
 
@@ -77,6 +102,7 @@ export default {
       fecha_inicio: "",
       fecha_fin: "",
       folios: [],
+      foliose: [],
       noFolios: false,
       loading: false, // Para manejar el estado de carga
     };
@@ -97,11 +123,13 @@ export default {
             fecha_fin: this.fecha_fin,
           },
         });
+  
 
         // Si no hay folios en la respuesta, se muestra el mensaje
         if (response.data.data.length === 0) {
           this.noFolios = true;
         } else {
+          console.log("Folios obtenidos:", response.data.data);
           this.noFolios = false;
         }
 
@@ -109,16 +137,42 @@ export default {
       } catch (error) {
         console.error("Error al consultar los folios:", error);
       }
+
+      try {
+        this.loading = true; // Iniciar el estado de carga
+        const response = await axios.get("/api/foliose", {
+          params: {
+            email: this.user.email,
+            fecha_inicio: this.fecha_inicio,
+            fecha_fin: this.fecha_fin,
+          },
+        });
+        console.log("FoliosE obtenidos:", response.data.data);
+        this.foliose = response.data.data; // Actualiza correctamente 'folios'
+        
+        // Si no hay resultados, mostrar el mensaje
+        if (this.folios.length === 0 && this.foliose.length === 0) {
+          this.noResultMessage = "No se encontraron folios en ese rango de fechas";
+        } else {
+          this.noResultMessage = ""; // Limpiar el mensaje si hay resultados
+        }
+      } catch (error) {
+        console.error("Error al consultar los folios:", error);
+      } finally {
+        this.loading = false; // Terminar el estado de carga
+      }
     },
 
     // Método para refrescar la consulta
-    refresh() {
+        refresh() {
       console.log("Refrescando...");
       this.loading = true; // Iniciar estado de carga
-      setTimeout(() => {
-        this.loading = false; // Terminar estado de carga después de 2 segundos
-      }, 2000);
-    },
+      this.consultarFolios()  // Llamada a la función que consulta los datos
+        .finally(() => {
+          this.loading = false; // Terminar estado de carga
+        });
+      },
+
 
     // Método para descargar un archivo asociado al folio
     async descargarFolio(userEmail, folio) {
@@ -134,6 +188,9 @@ export default {
             'Authorization': `Bearer ${token}`,
           },
         });
+
+
+        
 
         const fileData = response.data.data;
         const fileUrl = fileData.url;

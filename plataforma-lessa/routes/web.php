@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FrontController;
-use App\Http\Controllers\FileController;
+use App\Http\Controllers\API\FileController;
 use App\Http\Controllers\API\FolioeController;
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -61,7 +61,7 @@ Route::get('/consulta-muestrase', function () {
     ]);
 })->name('consulta.muestrase')->middleware('auth');
 
-//Route::middleware('auth:sanctum')->get('/file-url/{cliente}/{filename}', [FileController::class, 'getTemporaryUrl']);
+Route::middleware('auth:sanctum')->get('/file-url/{cliente}/{filename}', [FileController::class, 'getTemporaryUrl']);
 
 
 

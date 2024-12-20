@@ -117,14 +117,15 @@ export default {
     descargarFolioe(folio) {
       console.log(`Descargando folio ${folio.folio}`); // Implementar lógica de descarga
     },
-    refresh() {
-      // Lógica para el refresco
+        refresh() {
       console.log("Refrescando...");
       this.loading = true; // Iniciar estado de carga
-      setTimeout(() => {
-        this.loading = false; // Terminar estado de carga después de 2 segundos
-      }, 2000);
+      this.consultarFoliose()  // Llamada a la función que consulta los datos
+        .finally(() => {
+          this.loading = false; // Terminar estado de carga
+        });
     },
+
   },
 };
 </script>

@@ -33,34 +33,35 @@
     </div>
 
     <!-- Tabla de Folio Info -->
-    <div v-if="folioeInfo.length">
-      <h4 class="table-title">Detalles del folio extra</h4>
-      <hr />
-      <div class="table-container">
-        <table class="table" style="text-align: center; margin-top: 20px;">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Nombre de quien autoriza las muestras</th>
-              <th>Puesto del que autoriza</th>
-              <th>Nombre del tomador de muestras</th>
-              <th>Puesto del tomador de muestras</th>
-              <th>Estatus del folio</th>
-            </tr>
-          </thead>
-          <tbody>
-              <tr v-if="folioeInfo.length">
-                <td>{{ folioeInfo[0].fecha }}</td>
-                <td>{{ folioeInfo[0].nombre_autoriza_muestras }}</td>
-                <td>{{ folioeInfo[0].puesto_autoriza_muestra }}</td>
-                <td>{{ folioeInfo[0].nombre_tomador_muestra }}</td>
-                <td>{{ folioeInfo[0].puesto_tomador_muestra }}</td>
-                <td>{{ folioeInfo[0].estatus.toUpperCase() }}</td>
-              </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<div v-if="Object.keys(folioeInfo).length">
+  <h4 class="table-title">Detalles del folio extra</h4>
+  <hr />
+  <div class="table-container">
+    <table class="table" style="text-align: center; margin-top: 20px;">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Nombre de quien autoriza las muestras</th>
+          <th>Puesto del que autoriza</th>
+          <th>Nombre del tomador de muestras</th>
+          <th>Puesto del tomador de muestras</th>
+          <th>Estatus del folio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ folioeInfo.fecha }}</td>
+          <td>{{ folioeInfo.nombre_autoriza_muestras }}</td>
+          <td>{{ folioeInfo.puesto_autoriza_muestra }}</td>
+          <td>{{ folioeInfo.nombre_tomador_muestra }}</td>
+          <td>{{ folioeInfo.puesto_tomador_muestra }}</td>
+          <td>{{ folioeInfo.estatus.toUpperCase() }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
     <!-- Tabla de Muestras -->
     <div v-if="muestras.length">
@@ -114,7 +115,7 @@ export default {
   data() {
     return {
       muestras: [], // Asegura que muestras siempre sea un array vacío
-      folioeInfo: [], // Asegura que folioeInfo siempre sea un array vacío
+      folioeInfo: {}, // Asegura que folioeInfo siempre sea un array vacío
       folio_muestreoe: "", // Folio de muestreo ingresado
       alertMessage: "", // Mensaje de alerta
       loading: false, // Para manejar el estado de carga
@@ -161,11 +162,14 @@ export default {
 
     // Método para refrescar la página
     refresh() {
-      this.loading = true; // Activar el estado de carga
-      setTimeout(() => {
-        this.loading = false; // Desactivar el estado de carga después de 2 segundos
-      }, 2000);
-    },
+  console.log("Refrescando...");
+  this.loading = true; // Iniciar estado de carga
+  this.consultarFolios()  // Llamada a la función que consulta los datos
+    .finally(() => {
+      this.loading = false; // Terminar estado de carga
+    });
+},
+
   },
 };
 </script>
@@ -207,7 +211,7 @@ export default {
   background-color: white !important; /* Fondo blanco */
   border: 1px solid #007bff !important; /* Borde azul */
   color: #007bff !important; /* Texto azul */
-  padding: 10px 20px;
+  padding: 5px 10px;
   display: inline-flex;
   align-items: center;
   margin-top: 10px;
