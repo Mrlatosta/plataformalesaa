@@ -4,9 +4,11 @@
       <!-- Imagen posicionada arriba del texto -->
       <img src="../../../public/gota.png" alt="Gota" class="gota-image" />
     </div>
+
+<div>
     <h2 style="text-align: center;">Consulta de Muestras</h2>
     <hr />
-
+<!-- ################################################################################################################################### -->
     <!-- Formulario -->
     <div style="text-align: center;">
       <form @submit.prevent="consultarMuestras">
@@ -102,6 +104,107 @@
       </div>
     </div>
   </div>
+</div>
+<!-- ################################################################################################################ -->
+
+<div>
+  <h2 style="text-align: center;">Consulta de Muestras extra</h2>
+  <hr />
+
+  <div style="text-align: center;">
+    <form @submit.prevent="consultarMuestrase">
+      <div class="form-container">
+        <div style="font-size: 22px;">
+          <label for="folio_muestreo">Ingresa tu folio de muestreo:</label>
+          <input size="12" type="text" v-model="folio_muestreoe" required />
+        </div>
+      </div>
+      <br />
+      <button type="button" class="btn btn-outline-primary" @click="consultarMuestrase">
+        Consultar
+      </button>
+
+      <!-- Botón Refrescar -->
+      <button type="button" @click="refresh" class="btn btn-outline-primary">
+        <i v-if="loading" class="fas fa-sync-alt fa-spin"></i>
+        <span v-if="!loading">Refrescar</span>
+      </button>
+    </form>
+  </div>
+
+  <!-- Alerta de no encontrado -->
+  <div v-if="alertMessage" class="alert alert-warning mt-3" role="alert" style="text-align: center;">
+    {{ alertMessage }}
+  </div>
+
+  <!-- Tabla de Folio Info -->
+  <div v-if="Object.keys(folioeInfo).length">
+    <h4 class="table-title">Detalles del folio extra</h4>
+    <hr />
+    <div class="table-container">
+      <table class="table" style="text-align: center; margin-top: 20px;">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Nombre de quien autoriza las muestras</th>
+            <th>Puesto del que autoriza</th>
+            <th>Nombre del tomador de muestras</th>
+            <th>Puesto del tomador de muestras</th>
+            <th>Estatus del folio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ folioeInfo.fecha }}</td>
+            <td>{{ folioeInfo.nombre_autoriza_muestras }}</td>
+            <td>{{ folioeInfo.puesto_autoriza_muestra }}</td>
+            <td>{{ folioeInfo.nombre_tomador_muestra }}</td>
+            <td>{{ folioeInfo.puesto_tomador_muestra }}</td>
+            <td>{{ folioeInfo.estatus.toUpperCase() }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tabla de Muestras -->
+  <div v-if="muestras.length">
+    <h4 class="table-title">Información de las muestras extra</h4>
+    <hr />
+    <div class="table-container">
+      <table class="table" style="text-align: center; margin-top: 20px;">
+        <thead>
+          <tr>
+            <th>Registro muestra</th>
+            <th>Fecha muestreo</th>
+            <th>Nombre muestra</th>
+            <th>Cantidad aprox</th>
+            <th>Temperatura</th>
+            <th>Lugar toma</th>
+            <th>Descripción toma</th>
+            <th>Observaciones</th>
+            <th>Estatus de la muestra</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="muestra in muestras" :key="muestra.registro_muestra">
+            <td>{{ muestra.registro_muestra }}</td>
+            <td>{{ muestra.fecha_muestreo }}</td>
+            <td>{{ muestra.nombre_muestra }}</td>
+            <td>{{ muestra.cantidad_aprox }}</td>
+            <td>{{ muestra.temperatura }}</td>
+            <td>{{ muestra.lugar_toma }}</td>
+            <td>{{ muestra.descripcion_toma }}</td>
+            <td>{{ muestra.observaciones }}</td>
+            <td>{{ muestra.estatus.toUpperCase() }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> <!-- Este div de cierre faltaba al final -->
+<!-- ############################################################################################################### -->
+
 </template>
 
 <script>

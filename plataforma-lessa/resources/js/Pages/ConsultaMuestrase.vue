@@ -3,6 +3,8 @@
     <div class="image-container">
       <img src="../../../public/gota.png" alt="Gota" class="gota-image" />
     </div>
+<!-- #################################################################################### -->
+ <div>
     <h2 style="text-align: center;">Consulta de Muestras extra</h2>
     <hr />
 
@@ -33,34 +35,34 @@
     </div>
 
     <!-- Tabla de Folio Info -->
-<div v-if="Object.keys(folioeInfo).length">
-  <h4 class="table-title">Detalles del folio extra</h4>
-  <hr />
-  <div class="table-container">
-    <table class="table" style="text-align: center; margin-top: 20px;">
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>Nombre de quien autoriza las muestras</th>
-          <th>Puesto del que autoriza</th>
-          <th>Nombre del tomador de muestras</th>
-          <th>Puesto del tomador de muestras</th>
-          <th>Estatus del folio</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ folioeInfo.fecha }}</td>
-          <td>{{ folioeInfo.nombre_autoriza_muestras }}</td>
-          <td>{{ folioeInfo.puesto_autoriza_muestra }}</td>
-          <td>{{ folioeInfo.nombre_tomador_muestra }}</td>
-          <td>{{ folioeInfo.puesto_tomador_muestra }}</td>
-          <td>{{ folioeInfo.estatus.toUpperCase() }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div v-if="Object.keys(folioeInfo).length">
+    <h4 class="table-title">Detalles del folio extra</h4>
+    <hr />
+    <div class="table-container">
+      <table class="table" style="text-align: center; margin-top: 20px;">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Nombre de quien autoriza las muestras</th>
+            <th>Puesto del que autoriza</th>
+            <th>Nombre del tomador de muestras</th>
+            <th>Puesto del tomador de muestras</th>
+            <th>Estatus del folio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ folioeInfo.fecha }}</td>
+            <td>{{ folioeInfo.nombre_autoriza_muestras }}</td>
+            <td>{{ folioeInfo.puesto_autoriza_muestra }}</td>
+            <td>{{ folioeInfo.nombre_tomador_muestra }}</td>
+            <td>{{ folioeInfo.puesto_tomador_muestra }}</td>
+            <td>{{ folioeInfo.estatus.toUpperCase() }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 
 
     <!-- Tabla de Muestras -->
@@ -99,6 +101,8 @@
       </div>
     </div>
   </div>
+</div>
+<!-- #################################################################################### -->
 </template>
 
 <script>

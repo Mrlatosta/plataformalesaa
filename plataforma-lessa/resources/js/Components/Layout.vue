@@ -24,26 +24,8 @@
               <li class="nav-item">
                 <a class="nav-link" href="/inicio" style="color: #002668; font-size: 1.3rem; font-weight: 700;">Inicio</a>
               </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="/consulta-informes"
-                  id="consultaInformesDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  style="color: #002668;"
-                >
-                  Conoce tus folios
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="consultaInformesDropdown">
-                  <li>
-                    <a class="dropdown-item" href="/consulta-informes">Consulta folios</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="/consulta-informese">Consulta folios extras</a>
-                  </li>
-                </ul>
+              <li class="nav-item">
+                <a class="nav-link" href="/consulta-informes" style="color: #002668; font-size: 1.3rem; font-weight: 700;">Consulta tus folios</a>
               </li>
               <li class="nav-item dropdown">
                 <a

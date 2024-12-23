@@ -1,88 +1,98 @@
 <template>
-  <div class="shadow rounded bg-white m-xl-3 m-3 p-xl-5 position-relative">
-    <div class="image-container">
-      <!-- Imagen posicionada arriba del texto -->
-      <img src="../../../public/gota.png" alt="Gota" class="gota-image" />
-    </div>
-    <h2 style="text-align: center;">Consulta de Informes</h2>
-    <hr>
-    <div style="text-align: center;">
-      <form @submit.prevent="consultarFolios">
-        <!-- Contenedor de rango de fechas -->
-        <div class="form-container">
-          <div>
-            <label for="fecha_inicio">Fecha Inicio:</label>
-            <input type="date" v-model="fecha_inicio" required />
-          </div>
-          <div>
-            <label for="fecha_fin">Fecha Fin: </label>
-            <input type="date" v-model="fecha_fin" required />
-          </div>
+  <div class="main-container">
+    <!-- Contenedor Principal -->
+    <div class="shadow rounded bg-white m-3 p-4 position-relative">
+      <div class="image-container">
+        <img src="../../../public/gota.png" alt="Gota" class="gota-image" />
+      </div>
+      <h2 class="text-center">Consulta de Informes</h2>
+      <hr />
+      <form @submit.prevent="consultarFolios" class="form-container">
+        <div class="form-group">
+          <label for="fecha_inicio">Fecha Inicio:</label>
+          <input type="date" v-model="fecha_inicio" class="form-control" required />
         </div>
-
-        <br />
-        <button type="button" class="btn btn-outline-primary" @click="consultarFolios">Consultar</button>
-
-        <!-- Botón Refrescar -->
-        <button type="button" @click="refresh" class="btn btn-outline-primary">
-          <i v-if="loading" class="fas fa-sync-alt fa-spin"></i>
-          <span v-if="!loading">Refrescar</span>
-        </button>
+        <div class="form-group">
+          <label for="fecha_fin">Fecha Fin:</label>
+          <input type="date" v-model="fecha_fin" class="form-control" required />
+        </div>
+        <div class="button-group">
+          <button type="button" class="btn btn-primary" @click="consultarFolios">
+            Consultar
+          </button>
+          <button type="button" class="btn btn-outline-primary" @click="refresh">
+            <i v-if="loading" class="fas fa-sync-alt fa-spin"></i>
+            <span v-if="!loading">Refrescar</span>
+          </button>
+        </div>
       </form>
+      <div v-if="noFolios" class="alert alert-warning text-center mt-3">
+        No se encontraron folios en ese rango de fechas.
+      </div>
     </div>
 
-    <!-- Mensaje si no se encuentran folios -->
-    <div v-if="noFolios" class="alert alert-warning no-folios-alert" role="alert">
-      No se encontraron folios en ese rango de fechas.
+    <!-- Tablas de datos -->
+    <div v-if="folios.length" class="table-container">
+      <div class="shadow rounded bg-white m-3 p-4 position-relative">
+        <h3 class="text-primary text-center mt-4">Folios Generales</h3>
+        <hr />
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Folio</th>
+                <th>Fecha</th>
+                <th>Estatus</th>
+                <th>Descargar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="folio in folios" :key="folio.folio">
+                <td>{{ folio.folio }}</td>
+                <td>{{ folio.fecha }}</td>
+                <td>{{ folio.estatus.toUpperCase() }}</td>
+                <td>
+                  <button type="button" class="btn btn-primary" @click="descargarFolio(user.email, folio.folio)">
+                    Descargar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
-    <table class="table" v-if="folios.length" style="text-align: center;">
-      <thead>
-        <tr>
-          <th>Folio</th>
-          <th>Fecha</th>
-          <th>Estatus</th>
-          <th>Descargar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="folio in folios" :key="folio.folio">
-          <td>{{ folio.folio }}</td>
-          <td>{{ folio.fecha }}</td>
-          <td>{{ folio.estatus.toUpperCase() }}</td>
-          <td>
-            <button type="button" class="btn btn-primary" @click="descargarFolio(user.email, folio.folio)">
-              <img src="../../../public/downloadicon.png" style="filter: invert(100%);" width="20" alt="Descargar">
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <table class="table" v-if="foliose.length" style="text-align: center;">
-      <thead>
-        <tr>
-          <th>Folio</th>
-          <th>Fecha</th>
-          <th>Estatus</th>
-          <th>Descargar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="folio in foliose" :key="folio.folio">
-          <td>{{ folio.folio }}</td>
-          <td>{{ folio.fecha }}</td>
-          <td>{{ folio.estatus.toUpperCase() }}</td>
-          <td>
-            <button type="button" class="btn btn-primary" @click="descargarFolio(user.email, folio.folio)">
-              <img src="../../../public/downloadicon.png" style="filter: invert(100%);" width="20" alt="Descargar">
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-
+    <div v-if="foliose.length" class="table-container">
+      <div class="shadow rounded bg-white m-3 p-4 position-relative">
+        <h3 class="text-primary text-center mt-4">Folios Extras</h3>
+        <hr />
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Folio</th>
+                <th>Fecha</th>
+                <th>Estatus</th>
+                <th>Descargar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="folio in foliose" :key="folio.folio">
+                <td>{{ folio.folio }}</td>
+                <td>{{ folio.fecha }}</td>
+                <td>{{ folio.estatus.toUpperCase() }}</td>
+                <td>
+                  <button type="button" class="btn btn-primary" @click="descargarFolio(user.email, folio.folio)">
+                    Descargar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -104,11 +114,10 @@ export default {
       folios: [],
       foliose: [],
       noFolios: false,
-      loading: false, // Para manejar el estado de carga
+      loading: false,
     };
   },
   methods: {
-    // Método para consultar los folios
     async consultarFolios() {
       if (!this.user || !this.user.email) {
         console.error("El usuario no está definido o no tiene un email:", this.user);
@@ -123,9 +132,7 @@ export default {
             fecha_fin: this.fecha_fin,
           },
         });
-  
 
-        // Si no hay folios en la respuesta, se muestra el mensaje
         if (response.data.data.length === 0) {
           this.noFolios = true;
         } else {
@@ -139,7 +146,7 @@ export default {
       }
 
       try {
-        this.loading = true; // Iniciar el estado de carga
+        this.loading = true;
         const response = await axios.get("/api/foliose", {
           params: {
             email: this.user.email,
@@ -148,127 +155,111 @@ export default {
           },
         });
         console.log("FoliosE obtenidos:", response.data.data);
-        this.foliose = response.data.data; // Actualiza correctamente 'folios'
-        
-        // Si no hay resultados, mostrar el mensaje
+        this.foliose = response.data.data;
+
         if (this.folios.length === 0 && this.foliose.length === 0) {
           this.noResultMessage = "No se encontraron folios en ese rango de fechas";
         } else {
-          this.noResultMessage = ""; // Limpiar el mensaje si hay resultados
+          this.noResultMessage = "";
         }
       } catch (error) {
         console.error("Error al consultar los folios:", error);
       } finally {
-        this.loading = false; // Terminar el estado de carga
+        this.loading = false;
       }
     },
 
-    // Método para refrescar la consulta
-        refresh() {
+    refresh() {
       console.log("Refrescando...");
-      this.loading = true; // Iniciar estado de carga
-      this.consultarFolios()  // Llamada a la función que consulta los datos
-        .finally(() => {
-          this.loading = false; // Terminar estado de carga
-        });
-      },
+      this.loading = true;
+      this.consultarFolios().finally(() => {
+        this.loading = false;
+      });
+    },
 
-
-    // Método para descargar un archivo asociado al folio
     async descargarFolio(userEmail, folio) {
       try {
-        const token = localStorage.getItem('authToken');
+        const token = localStorage.getItem("authToken");
         if (!token) {
-          console.error('Token no disponible');
+          console.error("Token no disponible");
           return;
         }
 
         const response = await axios.get(`/api/file-url/${userEmail}/${folio}`, {
           headers: {
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
 
-
-        
-
         const fileData = response.data.data;
         const fileUrl = fileData.url;
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = fileUrl;
         link.download = folio;
         link.click();
       } catch (error) {
-        console.error('Error al intentar descargar el archivo:', error);
-        alert('Ocurrió un error al intentar descargar el archivo');
+        console.error("Error al intentar descargar el archivo:", error);
+        alert("Ocurrió un error al intentar descargar el archivo");
       }
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
-/* Agrega aquí tus estilos adicionales si los necesitas */
-.position-relative {
-  position: relative;
+/* General */
+.main-container {
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 15px;
 }
 
-/* Contenedor para la imagen */
 .image-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .gota-image {
-  width: 100px;
-  height: auto;
-  z-index: 10;
+  width: 80px;
 }
 
 .form-container {
   display: flex;
   flex-direction: column;
+  gap: 15px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
   gap: 10px;
-  margin-top: 30px;
 }
 
-/* Estilo para el botón de refresco */
-.btn-refresh {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  margin-top: 10px;
+.table-container {
+  margin: 15px 0;
 }
 
-.btn-refresh i {
-  margin-right: 8px;
+.table-responsive {
+  overflow-x: auto;
 }
 
-/* Media query para pantallas pequeñas */
-@media (max-width: 767px) {
-  .image-container {
-    flex-direction: column;
-    align-items: center;
+/* Media Queries */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.5rem;
   }
 
   .gota-image {
-    width: 80px;
-    margin-bottom: 15px;
+    width: 60px;
   }
 
-  h2 {
-    margin-top: 10px;
+  .form-container {
+    gap: 10px;
   }
 
   .table {
-    width: 100%;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }
 </style>
