@@ -41,6 +41,7 @@ return array(
     'App\\Models\\FolioE' => $baseDir . '/app/Models/FolioE.php',
     'App\\Models\\FolioM' => $baseDir . '/app/Models/FolioM.php',
     'App\\Models\\Muestras' => $baseDir . '/app/Models/Muestras.php',
+    'App\\Models\\MuestrasE' => $baseDir . '/app/Models/MuestrasE.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\UserFile' => $baseDir . '/app/Models/UserFile.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',

@@ -75,7 +75,7 @@ class FolioeController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al recuperar los folios.',
+                'message' => 'Error al recuperar la información del folio.',
                 'error' => $e->getMessage(),
             ], 500);
         }

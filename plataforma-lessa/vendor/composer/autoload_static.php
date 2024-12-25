@@ -347,8 +347,8 @@ class ComposerStaticInit507b7bd2b5a9c4b4c1368bef5da6cce7
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -388,8 +388,8 @@ class ComposerStaticInit507b7bd2b5a9c4b4c1368bef5da6cce7
         ),
         'League\\Uri\\' => 
         array (
-            0 => __DIR__ . '/..' . '/league/uri-interfaces',
-            1 => __DIR__ . '/..' . '/league/uri',
+            0 => __DIR__ . '/..' . '/league/uri',
+            1 => __DIR__ . '/..' . '/league/uri-interfaces',
         ),
         'League\\MimeTypeDetection\\' => 
         array (
@@ -582,6 +582,7 @@ class ComposerStaticInit507b7bd2b5a9c4b4c1368bef5da6cce7
         'App\\Models\\FolioE' => __DIR__ . '/../..' . '/app/Models/FolioE.php',
         'App\\Models\\FolioM' => __DIR__ . '/../..' . '/app/Models/FolioM.php',
         'App\\Models\\Muestras' => __DIR__ . '/../..' . '/app/Models/Muestras.php',
+        'App\\Models\\MuestrasE' => __DIR__ . '/../..' . '/app/Models/MuestrasE.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\UserFile' => __DIR__ . '/../..' . '/app/Models/UserFile.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
