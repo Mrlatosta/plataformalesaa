@@ -138,7 +138,7 @@ export default {
       }
 
       try {
-        const muestrasResponse = await axios.get("/api/muestras", {
+        const muestrasResponse = await axios.get("/api/consulta-muestras", {
           params: {
             email: this.user.email,
             folio: this.folio_muestreo,

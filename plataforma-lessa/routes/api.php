@@ -21,7 +21,7 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/folios', [FolioController::class, 'getFoliosByClientAndDate']);
 
-Route::get('/consulta-muestrase', [MuestrasController::class, 'getMuestrasByFolio']);
+Route::get('/consulta-muestras', [MuestrasController::class, 'getMuestrasByFolio']);
 
 Route::get('/folio-info', [FolioController::class, 'obtenerFolioInfo']);
 
