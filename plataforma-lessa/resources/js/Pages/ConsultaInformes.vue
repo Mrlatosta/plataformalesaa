@@ -10,11 +10,23 @@
       <form @submit.prevent="consultarFolios" class="form-container">
         <div class="form-group">
           <label for="fecha_inicio">Fecha Inicio:</label>
-          <input type="date" v-model="fecha_inicio" class="form-control" required />
+          <input
+            type="date"
+            id="fecha_inicio"
+            v-model="fecha_inicio"
+            class="form-control date-input"
+            required
+          />
         </div>
         <div class="form-group">
           <label for="fecha_fin">Fecha Fin:</label>
-          <input type="date" v-model="fecha_fin" class="form-control" required />
+          <input
+            type="date"
+            id="fecha_fin"
+            v-model="fecha_fin"
+            class="form-control date-input"
+            required
+          />
         </div>
         <div class="button-group">
           <button type="button" class="btn btn-primary" @click="consultarFolios">
@@ -52,7 +64,11 @@
                 <td>{{ folio.fecha }}</td>
                 <td>{{ folio.estatus.toUpperCase() }}</td>
                 <td>
-                  <button type="button" class="btn btn-primary" @click="descargarFolio(user.email, folio.folio)">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    @click="descargarFolio(user.email, folio.folio)"
+                  >
                     Descargar
                   </button>
                 </td>
@@ -83,7 +99,11 @@
                 <td>{{ folio.fecha }}</td>
                 <td>{{ folio.estatus.toUpperCase() }}</td>
                 <td>
-                  <button type="button" class="btn btn-primary" @click="descargarFolio(user.email, folio.folio)">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    @click="descargarFolio(user.email, folio.folio)"
+                  >
                     Descargar
                   </button>
                 </td>
@@ -95,6 +115,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import Layout from "@/components/Layout.vue";
@@ -206,8 +227,14 @@ export default {
 };
 </script>
 
+
 <style scoped>
 /* General */
+.date-input {
+  max-width: 200px;
+  text-align: center;
+  margin: 0 auto;
+}
 .main-container {
   margin: 0 auto;
   max-width: 100%;
@@ -227,6 +254,7 @@ export default {
 .form-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 15px;
 }
 
@@ -255,7 +283,16 @@ export default {
   }
 
   .form-container {
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .table {

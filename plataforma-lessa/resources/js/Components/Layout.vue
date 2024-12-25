@@ -27,26 +27,8 @@
               <li class="nav-item">
                 <a class="nav-link" href="/consulta-informes" style="color: #002668; font-size: 1.3rem; font-weight: 700;">Consulta tus folios</a>
               </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="/consulta-muestras"
-                  id="consultaMuestrasDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  style="color: #002668;"
-                >
-                  Seguimiento Muestras
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="consultaMuestrasDropdown">
-                  <li>
-                    <a class="dropdown-item" href="/consulta-muestras">Seguimiento de muestras</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="/consulta-muestrase">Seguimiento de muestras extras</a>
-                  </li>
-                </ul>
+              <li class="nav-item">
+                <a class="nav-link" href="/consulta-muestras" style="color: #002668; font-size: 1.3rem; font-weight: 700;">Consulta tus muestras</a>
               </li>
               <li class="nav-item" style="display: flex; justify-items: center; text-align: center; vertical-align: middle;">
                 <a class="nav-link active" aria-current="page" href="/logout" style="color: #8B0606; font-size: 1rem; margin: 0px">

@@ -1,188 +1,181 @@
 <template>
   <div class="shadow rounded bg-white m-xl-3 m-5 p-xl-5 p-2 position-relative">
     <div class="image-container">
-      <!-- Imagen posicionada arriba del texto -->
       <img src="../../../public/gota.png" alt="Gota" class="gota-image" />
     </div>
 
-<div>
-    <h2 style="text-align: center;">Consulta de Muestras</h2>
-    <hr />
-<!-- ################################################################################################################################### -->
-    <!-- Formulario -->
-    <div style="text-align: center;">
-      <form @submit.prevent="consultarMuestras">
-        <div class="form-container">
-          <div style="font-size: 22px;">
-            <label for="folio_muestreo">Ingresa tu folio de muestreo:</label>
-            <input size="12" type="text" v-model="folio_muestreo" required />
+    <div>
+      <h2 style="text-align: center;">Consulta de Muestras</h2>
+      <hr />
+
+      <!-- Formulario -->
+      <div style="text-align: center;">
+        <form @submit.prevent="consultarMuestras">
+          <div class="form-container">
+            <div style="font-size: 22px;">
+              <label for="folio_muestreo">Ingresa tu folio de muestreo:</label>
+              <input size="12" type="text" v-model="folio_muestreo" required />
+            </div>
           </div>
+          <br />
+          <button type="submit" class="btn btn-outline-primary">
+            Consultar
+          </button>
+          <button type="button" @click="refresh" class="btn btn-outline-primary">
+            <i v-if="loading" class="fas fa-sync-alt fa-spin"></i>
+            <span v-if="!loading">Refrescar</span>
+          </button>
+
+        </form>
+      </div>
+
+      <!-- Mostrar alerta si no se encuentra el folio -->
+      <div v-if="alertMessage" class="alert alert-warning alert-dismissible fade show" role="alert" style="text-align: center;">
+        <div class="error-message">
+          {{ alertMessage }}
         </div>
-        <br/>
-        <button type="button" class="btn btn-outline-primary" @click="consultarMuestras">
-          Consultar
-        </button>
-
-        <!-- Botón Refrescar -->
-        <button type="button" @click="refresh" class="btn btn-outline-primary">
-          <i v-if="loading" class="fas fa-sync-alt fa-spin"></i>
-          <span v-if="!loading">Refrescar</span>
-        </button>
-      </form>
-    </div>
-
-    <!-- Mostrar alerta si no se encuentra el folio -->
-    <div v-if="noResultMessage" class="alert alert-warning alert-dismissible fade show" role="alert" style="text-align: center;">
-      <div class="error-message">
-        {{ noResultMessage }}
       </div>
-    </div>
 
-    <!-- Tabla de Folio Info -->
-    <div v-if="folioInfo.length">
-      <h4 class="table-title">Detalles del folio</h4>
-      <hr />
-      <div class="table-container">
-        <table class="table" style="text-align: center; margin-top: 20px;">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Nombre de quien autoriza las muestras</th>
-              <th>Puesto del que autoriza</th>
-              <th>Nombre del tomador de muestras</th>
-              <th>Puesto del tomador de muestras</th>
-              <th>Estatus del folio</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="info in folioInfo" :key="info.fecha">
-              <td>{{ info.fecha }}</td>
-              <td>{{ info.nombre_autoriza_muestras }}</td>
-              <td>{{ info.puesto_autoriza_muestra }}</td>
-              <td>{{ info.nombre_tomador_muestra }}</td>
-              <td>{{ info.puesto_tomador_muestra }}</td>
-              <td>{{ info.estatus.toUpperCase() }}</td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Tabla de Folio Info -->
+      <div v-if="folioInfo && Object.keys(folioInfo).length > 0">
+        <h4 class="table-title">Detalles del Folio</h4>
+        <hr />
+        <div class="table-container">
+          <table class="table" style="text-align: center; margin-top: 20px;">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Nombre de quien autoriza</th>
+                <th>Puesto</th>
+                <th>Nombre del tomador</th>
+                <th>Puesto del tomador</th>
+                <th>Estatus</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ folioInfo.fecha }}</td>
+                <td>{{ folioInfo.nombre_autoriza_muestras }}</td>
+                <td>{{ folioInfo.puesto_autoriza_muestra }}</td>
+                <td>{{ folioInfo.nombre_tomador_muestra }}</td>
+                <td>{{ folioInfo.puesto_tomador_muestra }}</td>
+                <td>{{ folioInfo.estatus?.toUpperCase() }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
 
-    <!-- Tabla de Muestras -->
-    <div v-if="muestras.length">
-      <h4 class="table-title">Información de las muestras</h4>
-      <hr />
-      <div class="table-container">
-        <table class="table" style="text-align: center; margin-top: 20px;">
-          <thead>
-            <tr>
-              <th>Registro muestra</th>
-              <th>Fecha muestreo</th>
-              <th>Nombre muestra</th>
-              <th>Cantidad aprox</th>
-              <th>Temperatura</th>
-              <th>Lugar toma</th>
-              <th>Descripción toma</th>
-              <th>Observaciones</th>
-              <th>Estatus de la muestra</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="muestra in muestras" :key="muestra.registro_muestra">
-              <td>{{ muestra.registro_muestra }}</td>
-              <td>{{ muestra.fecha_muestreo }}</td>
-              <td>{{ muestra.nombre_muestra }}</td>
-              <td>{{ muestra.cantidad_aprox }}</td>
-              <td>{{ muestra.temperatura }}</td>
-              <td>{{ muestra.lugar_toma }}</td>
-              <td>{{ muestra.descripcion_toma }}</td>
-              <td>{{ muestra.observaciones }}</td>
-              <td>{{ muestra.estatus.toUpperCase() }}</td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Tabla de Muestras -->
+      <div v-if="muestras.length">
+        <h4 class="table-title">Información de las Muestras</h4>
+        <hr />
+        <div class="table-container">
+          <table class="table" style="text-align: center; margin-top: 20px;">
+            <thead>
+              <tr>
+                <th>Registro</th>
+                <th>Fecha</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Temperatura</th>
+                <th>Lugar</th>
+                <th>Descripción</th>
+                <th>Observaciones</th>
+                <th>Estatus</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="muestra in muestras" :key="muestra.registro_muestra">
+                <td>{{ muestra.registro_muestra }}</td>
+                <td>{{ muestra.fecha_muestreo }}</td>
+                <td>{{ muestra.nombre_muestra }}</td>
+                <td>{{ muestra.cantidad_aprox }}</td>
+                <td>{{ muestra.temperatura }}</td>
+                <td>{{ muestra.lugar_toma }}</td>
+                <td>{{ muestra.descripcion_toma }}</td>
+                <td>{{ muestra.observaciones }}</td>
+                <td>{{ muestra.estatus?.toUpperCase() }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!-- ################################################################################################################ -->
-<!-- ############################################################################################################### -->
-
 </template>
 
 <script>
-import Layout from "@/components/Layout.vue";
 import axios from "axios";
 
 export default {
-  components: {
-    Layout,
-  },
-  props: {
-    user: Object,
-  },
   data() {
     return {
-      muestras: [],
-      folioInfo: [],
       folio_muestreo: "",
-      noResultMessage: "",
-      loading: false, // Para manejar el estado de carga
+      folioInfo: null,
+      muestras: [],
+      alertMessage: "",
+      loading: false,
     };
+  },
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
   },
   methods: {
     async consultarMuestras() {
-      if (!this.user || !this.user.email) {
-        console.error("El usuario no está definido o no tiene un email:", this.user);
-        return;
-      }
+      this.loading = true;
+      this.alertMessage = "";
+
+      const isExtra = this.folio_muestreo.includes("E");
+      const folioEndpoint = isExtra ? "/api/folioe-info" : "/api/folio-info";
+      const muestrasEndpoint = isExtra ? "/api/consulta-muestrase" : "/api/consulta-muestras";
 
       try {
-        const muestrasResponse = await axios.get("/api/consulta-muestras", {
-          params: {
-            email: this.user.email,
-            folio: this.folio_muestreo,
-          },
+        const { data: muestrasData } = await axios.get(muestrasEndpoint, {
+          params: { email: this.user.email, folio: this.folio_muestreo },
         });
-        this.muestras = muestrasResponse.data.data;
+        this.muestras = muestrasData.data || [];
 
-        const folioResponse = await axios.get("/api/folio-info", {
-          params: {
-            email: this.user.email,
-            folio: this.folio_muestreo,
-          },
+        const { data: folioData } = await axios.get(folioEndpoint, {
+          params: { email: this.user.email, folio: this.folio_muestreo },
         });
-        this.folioInfo = folioResponse.data.data;
 
-        if (this.muestras.length === 0 && this.folioInfo.length === 0) {
-          this.noResultMessage = "Folio de Muestras no encontrado en la base de datos";
-        } else {
-          this.noResultMessage = "";
+        if (folioData.data) {
+          if (Array.isArray(folioData.data) && folioData.data.length > 0) {
+            this.folioInfo = folioData.data[0];
+          } else if (typeof folioData.data === "object") {
+            this.folioInfo = folioData.data;
+          }
+        }
+
+        if (!this.muestras.length && (!this.folioInfo || Object.keys(this.folioInfo).length === 0)) {
+          this.alertMessage = "Folio no encontrado.";
         }
       } catch (error) {
-        console.error("Error al consultar los datos:", error);
+        this.alertMessage = error.response?.data?.message || "Error al consultar los datos.";
+      } finally {
+        this.loading = false;
       }
     },
-        refresh() {
-      console.log("Refrescando...");
-      this.loading = true; // Iniciar estado de carga
-      this.consultarMuestras()  // Llamada a la función que consulta los datos
-        .finally(() => {
-          this.loading = false; // Terminar estado de carga
-        });
-    },
+    refresh() {
+  this.alertMessage = ""; // Reinicia mensajes de alerta
+  this.consultarMuestras(); // Vuelve a ejecutar la consulta
+},
 
   },
 };
 </script>
 
+
 <style scoped>
-/* Error message styling */
 .error-message {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%; /* Asegura que el mensaje se centre verticalmente */
+  height: 100%;
 }
 
 .position-relative {
@@ -217,9 +210,9 @@ export default {
 }
 
 .btn-outline-primary {
-  background-color: white !important; /* Fondo blanco */
-  border: 1px solid #007bff !important; /* Borde azul */
-  color: #007bff !important; /* Texto azul */
+  background-color: white !important;
+  border: 1px solid #007bff !important;
+  color: #007bff !important;
   padding: 5px 10px;
   display: inline-flex;
   align-items: center;
