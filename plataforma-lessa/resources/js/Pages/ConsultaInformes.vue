@@ -158,7 +158,6 @@ export default {
         if (response.data.data.length === 0) {
           this.noFolios = true;
         } else {
-          console.log("Folios obtenidos:", response.data.data);
           this.noFolios = false;
         }
 
@@ -176,7 +175,6 @@ export default {
             fecha_fin: this.fecha_fin,
           },
         });
-        console.log("FoliosE obtenidos:", response.data.data);
         this.foliose = response.data.data;
 
         if (this.folios.length === 0 && this.foliose.length === 0) {

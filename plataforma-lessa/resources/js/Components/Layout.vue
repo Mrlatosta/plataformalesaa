@@ -1,9 +1,13 @@
 <template>
   <div>
     <header>
+
+      <link rel="shortcut icon" type="image/png" href="{{ asset('../../../favicon.ico') }}">
+      <link rel="shortcut icon" sizes="192x192" href="{{ asset('../../../favicon.ico') }}">
+
       <nav class="navbar navbar-expand-lg bg-body-tertiary shadow fixed-top">
         <div class="container-fluid">
-          <a class="navbar-brand ms-3" href="#">
+          <a class="navbar-brand ms-3" href="https://grupolesaa.com.mx/" target="_blank">
             <img src="../../../public/logo.png" alt="Bootstrap" width="140px" class="ms-0 ms-xl-5 mt-2 mb-1">
           </a>
 
