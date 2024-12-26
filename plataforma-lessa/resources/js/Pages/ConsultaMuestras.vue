@@ -36,14 +36,14 @@
       <h4 class="text-center" style="color: #002668;">Detalles del Folio</h4>
       <hr />
       <div class="table-responsive">
-        <table class="table table-striped text-center">
+        <table class="table table-striped text-center ">
           <thead>
             <tr>
               <th>Fecha</th>
-              <th>Nombre de quien autoriza</th>
-              <th>Puesto</th>
-              <th>Nombre del tomador</th>
-              <th>Puesto del tomador</th>
+              <th>Nombre de quien autoriza las muestras</th>
+              <th>Puesto de quien autoriza las muestras</th>
+              <th>Nombre del tomador de las muestras</th>
+              <th>Puesto del tomador de las muestras</th>
               <th>Estatus</th>
             </tr>
           </thead>

@@ -47,6 +47,10 @@
 
     <!-- Main content with background -->
     <main class="bg-container">
+      <video autoplay muted loop class="background-video">
+        <source src="../../../public/fondo3.mp4" type="video/mp4">
+        Tu navegador no soporta el elemento de video.
+      </video>
       <slot></slot>
     </main>
 
@@ -111,19 +115,15 @@ footer {
   z-index: 1;
 }
 
-/* Fondo con opacidad */
-.bg-container::before {
-  content: '';
+/* Video de fondo */
+.background-video {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../../../public/fondo2.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.2;
+  object-fit: cover;
   z-index: -1;
+  opacity: 0.2; /* Ajusta la opacidad del video según sea necesario */
 }
 </style>
