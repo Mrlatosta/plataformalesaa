@@ -1,52 +1,54 @@
 <template>
   <div class="main-container">
     <!-- Contenedor Principal -->
-    <div class="shadow rounded bg-white m-3 p-4 position-relative">
-      <div class="image-container">
-        <img src="../../../public/gota.png" alt="Gota" class="gota-image" />
-      </div>
-      <h2 class="text-center">Consulta de Informes</h2>
-      <hr />
-      <form @submit.prevent="consultarFolios" class="form-container">
-        <div class="form-group">
-          <label for="fecha_inicio">Fecha Inicio:</label>
-          <input
-            type="date"
-            id="fecha_inicio"
-            v-model="fecha_inicio"
-            class="form-control date-input"
-            required
-          />
+    <div class="section-container">
+      <div class="shadow rounded bg-white p-4 position-relative">
+        <div class="image-container">
+          <img src="../../../public/gota.png" alt="Gota" class="gota-image" />
         </div>
-        <div class="form-group">
-          <label for="fecha_fin">Fecha Fin:</label>
-          <input
-            type="date"
-            id="fecha_fin"
-            v-model="fecha_fin"
-            class="form-control date-input"
-            required
-          />
+        <h2 class="text-center" style="color: #002668;">Consulta de Informes</h2>
+        <hr />
+        <form @submit.prevent="consultarFolios" class="form-container">
+          <div class="form-group">
+            <label for="fecha_inicio">Fecha Inicio:</label>
+            <input
+              type="date"
+              id="fecha_inicio"
+              v-model="fecha_inicio"
+              class="form-control date-input"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="fecha_fin">Fecha Fin:</label>
+            <input
+              type="date"
+              id="fecha_fin"
+              v-model="fecha_fin"
+              class="form-control date-input"
+              required
+            />
+          </div>
+          <div class="button-group">
+            <button type="button" class="btn btn-primary" @click="consultarFolios">
+              Consultar
+            </button>
+            <button type="button" class="btn btn-outline-primary" @click="refresh">
+              <i v-if="loading" class="fas fa-sync-alt fa-spin"></i>
+              <span v-if="!loading">Refrescar</span>
+            </button>
+          </div>
+        </form>
+        <div v-if="noFolios" class="alert alert-warning text-center mt-3">
+          No se encontraron folios en ese rango de fechas.
         </div>
-        <div class="button-group">
-          <button type="button" class="btn btn-primary" @click="consultarFolios">
-            Consultar
-          </button>
-          <button type="button" class="btn btn-outline-primary" @click="refresh">
-            <i v-if="loading" class="fas fa-sync-alt fa-spin"></i>
-            <span v-if="!loading">Refrescar</span>
-          </button>
-        </div>
-      </form>
-      <div v-if="noFolios" class="alert alert-warning text-center mt-3">
-        No se encontraron folios en ese rango de fechas.
       </div>
     </div>
 
     <!-- Tablas de datos -->
-    <div v-if="folios.length" class="table-container">
-      <div class="shadow rounded bg-white m-3 p-4 position-relative">
-        <h3 class="text-primary text-center mt-4">Folios Generales</h3>
+    <div class="section-container">
+      <div v-if="folios.length" class="shadow rounded bg-white p-4 position-relative">
+        <h3 class="text-primary text-center mt-4 custom-color">Folios Generales</h3>
         <hr />
         <div class="table-responsive">
           <table class="table table-striped">
@@ -79,9 +81,9 @@
       </div>
     </div>
 
-    <div v-if="foliose.length" class="table-container">
-      <div class="shadow rounded bg-white m-3 p-4 position-relative">
-        <h3 class="text-primary text-center mt-4">Folios Extras</h3>
+    <div class="section-container">
+      <div v-if="foliose.length" class="shadow rounded bg-white p-4 position-relative">
+        <h3 class="text-primary text-center mt-4 custom-color" >Folios Extras</h3>
         <hr />
         <div class="table-responsive">
           <table class="table table-striped">
@@ -115,7 +117,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import Layout from "@/components/Layout.vue";
@@ -226,19 +227,33 @@ export default {
   },
 };
 </script>
-
-
 <style scoped>
-/* General */
-.date-input {
-  max-width: 200px;
-  text-align: center;
-  margin: 0 auto;
+.custom-color {
+    color: #002668;
 }
+
+.text-primary {
+  color: #002668 !important;
+}
+
+
 .main-container {
   margin: 0 auto;
-  max-width: 100%;
+  max-width: 90%;
   padding: 15px;
+}
+
+.section-container {
+  margin: 30px 0; /* Separación entre bloques */
+  padding: 20px 0;
+}
+
+.shadow.rounded.bg-white {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Mejor sombra para destacar cada bloque */
+}
+
+.table-container {
+  margin: 20px 0;
 }
 
 .image-container {
@@ -264,12 +279,13 @@ export default {
   gap: 10px;
 }
 
-.table-container {
-  margin: 15px 0;
-}
-
 .table-responsive {
   overflow-x: auto;
+}
+
+/* Fondo de página */
+body {
+  background: linear-gradient(to bottom right, #f7f8fa, #eaeff5); /* Fondo sutil para resaltar los bloques */
 }
 
 /* Media Queries */
@@ -283,20 +299,8 @@ export default {
   }
 
   .form-container {
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 15px;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .table {
-    font-size: 0.9rem;
+    gap: 10px;
   }
 }
 </style>
