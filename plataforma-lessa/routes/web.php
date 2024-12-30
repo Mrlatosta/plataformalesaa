@@ -8,10 +8,18 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\API\FileController;
 use App\Http\Controllers\API\FolioeController;
 
+Route::get('/', function () {
+    return response()->file(public_path('index.html'));
+});
+
+
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'loginPost']);
 Route::get('logout', [AuthController::class, 'logout']);
 
+Route::get('/analisis-de-agua', function () {
+    return inertia('AnalisisDeAgua'); // Aquí el nombre debe coincidir con el archivo .vue sin la extensión.
+});
 
 Route::get('/folioe-info', function(){
     return Inertia::render('obtenerFolioeInfo', [
