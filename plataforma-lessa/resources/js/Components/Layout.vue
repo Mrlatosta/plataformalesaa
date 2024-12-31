@@ -7,7 +7,7 @@
 
       <nav class="navbar navbar-expand-lg bg-body-tertiary shadow fixed-top">
         <div class="container-fluid">
-          <a class="navbar-brand ms-3" href="https://grupolesaa.com.mx/" target="_blank">
+          <a class="navbar-brand ms-3" href="index.html" target="_blank">
             <img src="../../../public/logo.png" alt="Bootstrap" width="140px" class="ms-0 ms-xl-5 mt-2 mb-1">
           </a>
 
