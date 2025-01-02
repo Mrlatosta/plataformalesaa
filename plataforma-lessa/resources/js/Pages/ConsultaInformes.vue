@@ -119,7 +119,7 @@
 </template>
 
 <script>
-import Layout from "@/components/Layout.vue";
+import Layout from "@/Components/Layout.vue";
 import axios from "axios";
 
 export default {
