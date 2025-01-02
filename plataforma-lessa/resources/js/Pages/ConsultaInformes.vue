@@ -8,7 +8,32 @@
         </div>
         <h2 class="text-center" style="color: #002668;">Consulta de Informes</h2>
         <hr />
-        <form @submit.prevent="consultarFolios" class="form-container">
+
+        <!-- Selección del tipo de búsqueda -->
+        <div class="form-check">
+          <input
+            type="radio"
+            id="buscarPorFechas"
+            v-model="tipoBusqueda"
+            value="fechas"
+            class="form-check-input"
+          />
+          <label for="buscarPorFechas" class="form-check-label">Buscar por Rango de Fechas</label>
+        </div>
+        <div class="form-check">
+          <input
+            type="radio"
+            id="buscarPorFolio"
+            v-model="tipoBusqueda"
+            value="folio"
+            class="form-check-input"
+          />
+          <label for="buscarPorFolio" class="form-check-label">Buscar por Folio</label>
+        </div>
+        <hr />
+
+        <!-- Formulario de búsqueda -->
+        <form v-if="tipoBusqueda === 'fechas'" @submit.prevent="consultarFolios" class="form-container">
           <div class="form-group">
             <label for="fecha_inicio">Fecha Inicio:</label>
             <input
@@ -30,17 +55,29 @@
             />
           </div>
           <div class="button-group">
-            <button type="button" class="btn btn-primary" @click="consultarFolios">
-              Consultar
-            </button>
-            <button type="button" class="btn btn-outline-primary" @click="refresh">
-              <i v-if="loading" class="fas fa-sync-alt fa-spin"></i>
-              <span v-if="!loading">Refrescar</span>
-            </button>
+            <button type="submit" class="btn btn-primary">Consultar</button>
           </div>
         </form>
+
+        <form v-if="tipoBusqueda === 'folio'" @submit.prevent="consultarPorFolio" class="form-container">
+          <div class="form-group">
+            <label for="folio">Folio:</label>
+            <input
+              type="text"
+              id="folio"
+              v-model="folio"
+              class="form-control"
+              placeholder="Ingrese el número de folio"
+              required
+            />
+          </div>
+          <div class="button-group">
+            <button type="submit" class="btn btn-primary">Consultar</button>
+          </div>
+        </form>
+
         <div v-if="noFolios" class="alert alert-warning text-center mt-3">
-          No se encontraron folios en ese rango de fechas.
+          No se encontraron folios.
         </div>
       </div>
     </div>
@@ -83,7 +120,7 @@
 
     <div class="section-container">
       <div v-if="foliose.length" class="shadow rounded bg-white p-4 position-relative">
-        <h3 class="text-primary text-center mt-4 custom-color" >Informes Extras</h3>
+        <h3 class="text-primary text-center mt-4 custom-color">Extras</h3>
         <hr />
         <div class="table-responsive">
           <table class="table table-striped">
@@ -133,6 +170,8 @@ export default {
     return {
       fecha_inicio: "",
       fecha_fin: "",
+      folio: "",
+      tipoBusqueda: "fechas", // Estado para el tipo de búsqueda
       folios: [],
       foliose: [],
       noFolios: false,
@@ -155,46 +194,61 @@ export default {
           },
         });
 
-        if (response.data.data.length === 0) {
-          this.noFolios = true;
-        } else {
-          this.noFolios = false;
-        }
+        this.folios = response.data.data || [];
+        this.noFolios = this.folios.length === 0;
 
-        this.folios = response.data.data;
-      } catch (error) {
-        console.error("Error al consultar los folios:", error);
-      }
-
-      try {
-        this.loading = true;
-        const response = await axios.get("/api/foliose", {
+        const responseExtra = await axios.get("/api/foliose", {
           params: {
             email: this.user.email,
             fecha_inicio: this.fecha_inicio,
             fecha_fin: this.fecha_fin,
           },
         });
-        this.foliose = response.data.data;
+        this.foliose = responseExtra.data.data || [];
 
         if (this.folios.length === 0 && this.foliose.length === 0) {
-          this.noResultMessage = "No se encontraron folios en ese rango de fechas";
-        } else {
-          this.noResultMessage = "";
+          this.noFolios = true;
         }
       } catch (error) {
         console.error("Error al consultar los folios:", error);
-      } finally {
-        this.loading = false;
       }
     },
 
-    refresh() {
-      console.log("Refrescando...");
-      this.loading = true;
-      this.consultarFolios().finally(() => {
-        this.loading = false;
-      });
+    async consultarPorFolio() {
+      if (!this.user || !this.user.email) {
+        console.error("El usuario no está definido o no tiene un email:", this.user);
+        return;
+      }
+
+      if (!this.folio) {
+        alert("Por favor, ingrese un número de folio.");
+        return;
+      }
+
+      try {
+        let response;
+        if (this.folio.endsWith("E")) {
+          response = await axios.get("/api/foliose/folio", {
+            params: {
+              email: this.user.email,
+              folio: this.folio,
+            },
+          });
+          this.foliose = response.data.data || [];
+        } else {
+          response = await axios.get("/api/folios/folio", {
+            params: {
+              email: this.user.email,
+              folio: this.folio,
+            },
+          });
+          this.folios = response.data.data || [];
+        }
+
+        this.noFolios = !response.data.data.length;
+      } catch (error) {
+        console.error("Error al consultar el folio:", error);
+      }
     },
 
     async descargarFolio(userEmail, folio) {
@@ -225,15 +279,15 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .custom-color {
-    color: #002668;
+  color: #002668;
 }
 
 .text-primary {
   color: #002668 !important;
 }
-
 
 .main-container {
   margin: 0 auto;

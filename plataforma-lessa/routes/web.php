@@ -8,6 +8,31 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\API\FileController;
 use App\Http\Controllers\API\FolioeController;
 
+
+Route::get('/buscar-folios-por-folio', function (\Illuminate\Http\Request $request) {
+    $response = app(FolioController::class)->getFoliosByFolio($request);
+    return $response->getContent();
+})->name('buscar.folios.por.folio');
+
+Route::get('/buscar-foliose-por-folio', function (\Illuminate\Http\Request $request) {
+    $response = app(FolioeController::class)->getFolioseByFolioe($request);
+    return $response->getContent();
+})->name('buscar.foliose.por.folio');
+
+
+
+Route::get('/consulta-informese', function () {
+    return Inertia::render('ConsultaInformese', [
+        'user' => \Illuminate\Support\Facades\Auth::user(), // Aquí se pasa el usuario autenticado
+    ]);
+})->name('consulta.informese')->middleware('auth');
+
+Route::get('/consulta-informes', function () {
+    return Inertia::render('ConsultaInformes', [
+        'user' => \Illuminate\Support\Facades\Auth::user(), // Aquí se pasa el usuario autenticado
+    ]);
+})->name('consulta.informes')->middleware('auth');
+
 Route::get('/', function () {
     return response()->file(public_path('index.html'));
 });
@@ -26,19 +51,6 @@ Route::get('/folioe-info', function(){
         'user' => \Illuminate\Support\Facades\Auth::user(),
     ]);
 })->name('folioe.info')->middleware('auth');
-
-Route::get('/consulta-informes', function () {
-    return Inertia::render('ConsultaInformes', [
-        'user' => \Illuminate\Support\Facades\Auth::user(), // Aquí se pasa el usuario autenticado
-    ]);
-})->name('consulta.informes')->middleware('auth');
-
-Route::get('/consulta-informese', function () {
-    return Inertia::render('ConsultaInformese', [
-        'user' => \Illuminate\Support\Facades\Auth::user(), // Aquí se pasa el usuario autenticado
-    ]);
-})->name('consulta.informese')->middleware('auth');
-
 
 Route::get('/consulta-muestras', function () {
     return Inertia::render('ConsultaMuestras', [
