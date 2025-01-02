@@ -18,6 +18,10 @@ Route::get('/user', function (Request $request) {
 //    Route::get('/', [FolioController::class, 'get']);
 // });
 
+Route::get('/folios-by-folio', [FolioController::class, 'getFoliosByFolio']);
+
+
+Route::get('/foliose-by-folio', [FolioeController::class, 'getFolioseByFolioe']);
 
 Route::get('/folios', [FolioController::class, 'getFoliosByClientAndDate']);
 

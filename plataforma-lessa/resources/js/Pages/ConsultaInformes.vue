@@ -48,7 +48,7 @@
     <!-- Tablas de datos -->
     <div class="section-container">
       <div v-if="folios.length" class="shadow rounded bg-white p-4 position-relative">
-        <h3 class="text-primary text-center mt-4 custom-color">Folios Generales</h3>
+        <h3 class="text-primary text-center mt-4 custom-color">Informes Generales</h3>
         <hr />
         <div class="table-responsive">
           <table class="table table-striped">
@@ -83,7 +83,7 @@
 
     <div class="section-container">
       <div v-if="foliose.length" class="shadow rounded bg-white p-4 position-relative">
-        <h3 class="text-primary text-center mt-4 custom-color" >Folios Extras</h3>
+        <h3 class="text-primary text-center mt-4 custom-color" >Informes Extras</h3>
         <hr />
         <div class="table-responsive">
           <table class="table table-striped">

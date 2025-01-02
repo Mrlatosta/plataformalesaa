@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 style="font-weight: bold;">¡Bienvenido a la plataforma Lesaa!</h1>
+    <h1 style="font-weight: bold;">¡Bienvenido a la plataforma LESAA!</h1>
     <div class="shadow rounded p-xl-5 p-2 position-relative gradient-custom-2" id="conte">
       <p class="pnombre" style="text-align: center; color: white;">¡Hola, {{ user.name }}!</p>
       <p class="pdos" style="text-align: center; color: white;">Consulta fácilmente la información de tus informes o muestras desplazándote en el panel superior de la página.</p>

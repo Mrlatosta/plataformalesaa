@@ -29,7 +29,7 @@
                 <a class="nav-link" href="/inicio" style="color: #002668; font-size: 1.3rem; font-weight: 700;">Inicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/consulta-informes" style="color: #002668; font-size: 1.3rem; font-weight: 700;">Consulta tus folios</a>
+                <a class="nav-link" href="/consulta-informes" style="color: #002668; font-size: 1.3rem; font-weight: 700;">Consulta tus informes</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/consulta-muestras" style="color: #002668; font-size: 1.3rem; font-weight: 700;">Consulta tus muestras</a>
