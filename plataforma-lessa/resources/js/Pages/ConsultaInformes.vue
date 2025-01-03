@@ -17,6 +17,7 @@
             v-model="tipoBusqueda"
             value="fechas"
             class="form-check-input"
+            @change="resetDatos"
           />
           <label for="buscarPorFechas" class="form-check-label">Buscar por Rango de Fechas</label>
         </div>
@@ -27,6 +28,7 @@
             v-model="tipoBusqueda"
             value="folio"
             class="form-check-input"
+            @change="resetDatos"
           />
           <label for="buscarPorFolio" class="form-check-label">Buscar por Folio</label>
         </div>
@@ -56,6 +58,10 @@
           </div>
           <div class="button-group">
             <button type="submit" class="btn btn-primary">Consultar</button>
+            <button type="button" @click="refresh" class="btn btn-outline-primary">
+              <i v-if="loading" class="fas fa-sync-alt fa-spin"></i>
+              <span v-if="!loading">Refrescar</span>
+            </button>
           </div>
         </form>
 
@@ -73,6 +79,10 @@
           </div>
           <div class="button-group">
             <button type="submit" class="btn btn-primary">Consultar</button>
+            <button type="button" @click="refresh" class="btn btn-outline-primary">
+              <i v-if="loading" class="fas fa-sync-alt fa-spin"></i>
+              <span v-if="!loading">Refrescar</span>
+            </button>
           </div>
         </form>
 
@@ -180,11 +190,8 @@ export default {
   },
   methods: {
     async consultarFolios() {
-      if (!this.user || !this.user.email) {
-        console.error("El usuario no está definido o no tiene un email:", this.user);
-        return;
-      }
-
+      this.resetDatos();
+      this.loading = true;
       try {
         const response = await axios.get("/api/folios", {
           params: {
@@ -195,7 +202,6 @@ export default {
         });
 
         this.folios = response.data.data || [];
-        this.noFolios = this.folios.length === 0;
 
         const responseExtra = await axios.get("/api/foliose", {
           params: {
@@ -206,29 +212,21 @@ export default {
         });
         this.foliose = responseExtra.data.data || [];
 
-        if (this.folios.length === 0 && this.foliose.length === 0) {
-          this.noFolios = true;
-        }
+        this.noFolios = this.folios.length === 0 && this.foliose.length === 0;
       } catch (error) {
         console.error("Error al consultar los folios:", error);
+      } finally {
+        this.loading = false;
       }
     },
 
     async consultarPorFolio() {
-      if (!this.user || !this.user.email) {
-        console.error("El usuario no está definido o no tiene un email:", this.user);
-        return;
-      }
-
-      if (!this.folio) {
-        alert("Por favor, ingrese un número de folio.");
-        return;
-      }
-
+      this.resetDatos();
+      this.loading = true;
       try {
         let response;
         if (this.folio.endsWith("E")) {
-          response = await axios.get("/api/foliose/folio", {
+          response = await axios.get("/buscar-foliose-por-folio", {
             params: {
               email: this.user.email,
               folio: this.folio,
@@ -236,7 +234,7 @@ export default {
           });
           this.foliose = response.data.data || [];
         } else {
-          response = await axios.get("/api/folios/folio", {
+          response = await axios.get("/buscar-folios-por-folio", {
             params: {
               email: this.user.email,
               folio: this.folio,
@@ -248,7 +246,24 @@ export default {
         this.noFolios = !response.data.data.length;
       } catch (error) {
         console.error("Error al consultar el folio:", error);
+      } finally {
+        this.loading = false;
       }
+    },
+
+    refresh() {
+      this.resetDatos();
+      if (this.tipoBusqueda === "fechas") {
+        this.consultarFolios();
+      } else {
+        this.consultarPorFolio();
+      }
+    },
+
+    resetDatos() {
+      this.folios = [];
+      this.foliose = [];
+      this.noFolios = false;
     },
 
     async descargarFolio(userEmail, folio) {
@@ -279,6 +294,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 .custom-color {
