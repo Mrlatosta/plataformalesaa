@@ -33,7 +33,8 @@
                   </div>
 
                   <div class=" align-items-center justify-content-center pb-4">
-                    <p class="mb-0 me-2" style="text-align: center;">¿Aún no tienes una cuenta? <br><a href="mailto:atencionaclienteslab.lesa@gmail.com">Solicita una a atención a clientes</a></p>
+                    <p class="mb-0 me-2" style="text-align: center;">¿Aún no tienes una cuenta? <br>
+                    <a href="/contacto.html">Solicita una a atención a clientes</a></p>
                     
                     
                     
